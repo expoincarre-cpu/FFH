@@ -27,7 +27,7 @@ export const STATIONS: { pos: [number, number, number]; target: [number, number,
 ]
 
 /** Background / fog tint per station (dark, slightly tinted by the stage). */
-export const STATION_BG = ['#0d0e0c', '#0f0f0d', '#16130e', '#1a120b', '#0f130c', '#0c1215', '#170e0a', '#0d0e0c']
+export const STATION_BG = ['#121816', '#121816', '#18170f', '#1b170e', '#0e1b14', '#0f1818', '#1a140f', '#0d1f16']
 export const STATION_FOG: [number, number][] = [
   [30, 140],
   [20, 110],
@@ -104,12 +104,12 @@ export function rng(seed = 1) {
 
 /** Shared materials: a matte "architectural model" palette. */
 export const materials = {
-  clay: new THREE.MeshStandardMaterial({ color: '#d8d2c6', roughness: 0.92, metalness: 0 }),
-  clayWarm: new THREE.MeshStandardMaterial({ color: '#cdbb9c', roughness: 0.9 }),
+  clay: new THREE.MeshStandardMaterial({ color: '#e4dcc4', roughness: 0.92, metalness: 0 }),
+  clayWarm: new THREE.MeshStandardMaterial({ color: '#cfc29e', roughness: 0.9 }),
   clayCool: new THREE.MeshStandardMaterial({ color: '#d5dde0', roughness: 0.75, metalness: 0.05 }),
-  graphite: new THREE.MeshStandardMaterial({ color: '#2b2b28', roughness: 0.85 }),
+  graphite: new THREE.MeshStandardMaterial({ color: '#1f2a25', roughness: 0.85 }),
   steel: new THREE.MeshStandardMaterial({ color: '#8f9796', roughness: 0.45, metalness: 0.6 }),
-  ground: new THREE.MeshStandardMaterial({ color: '#141512', roughness: 1 }),
+  ground: new THREE.MeshStandardMaterial({ color: '#111a16', roughness: 1 }),
 }
 
 export const tmpObject = new THREE.Object3D()

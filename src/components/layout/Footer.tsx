@@ -3,7 +3,7 @@ import type { Locale } from '@/i18n/config'
 import type { Dictionary } from '@/i18n/dictionaries'
 import { href } from '@/i18n/routes'
 import { getGroup } from '@/lib/cms'
-import { Logo } from './Logo'
+import { Lockup } from './Logo'
 import { BackToTop } from './BackToTop'
 
 type Props = { locale: Locale; dict: Dictionary; businesses: { slug: string; name: string }[] }
@@ -74,7 +74,7 @@ export async function Footer({ locale, dict, businesses }: Props) {
       </div>
 
       <div className="site-footer__mark" aria-hidden="true">
-        <Logo />
+        <Lockup ground="dark" />
       </div>
 
       <div className="container site-footer__bottom">

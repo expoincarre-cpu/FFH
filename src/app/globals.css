@@ -6,15 +6,22 @@
 @property --stage {
   syntax: '<color>';
   inherits: true;
-  initial-value: #c9a15b;
+  initial-value: #d1b572;
 }
 
 :root {
-  --ink: #0d0e0c;
-  --ink-2: #141512;
-  --ink-3: #1c1d19;
-  --paper: #efebe3;
-  --paper-2: #e4ded2;
+  /* FFH brand palette (FERGUS guidelines) */
+  --green-deep: #0f3525;
+  --gold: #d1b572;
+  --cream: #f6f2e1;
+  --green: #3d6d55;
+  --charcoal: #1b1e1f;
+
+  --ink: #151918; /* charcoal, one step deeper for the immersive grounds */
+  --ink-2: var(--green-deep);
+  --ink-3: #222829;
+  --paper: var(--cream);
+  --paper-2: #ebe5cf;
   --fg: var(--paper);
   --bg: var(--ink);
   --muted: color-mix(in srgb, var(--fg) 58%, transparent);
@@ -22,18 +29,23 @@
   --line: color-mix(in srgb, var(--fg) 14%, transparent);
   --line-strong: color-mix(in srgb, var(--fg) 30%, transparent);
 
-  --brand: #c9a15b; /* wheat gold — replace with the official FFH colour */
-  --accent: #e0482b; /* signal vermilion, used sparingly */
+  --brand: var(--gold);
+  --accent: var(--gold);
+  --error: #c4583c;
   --stage: var(--brand);
 
-  --s-nutrition: #b8925a;
-  --s-hatchery: #e2a867;
-  --s-farming: #8e9c5c;
-  --s-transformation: #a8c0c6;
-  --s-food: #d4683f;
+  --s-nutrition: #d1b572;
+  --s-hatchery: #e9d6a6;
+  --s-farming: #82a98a;
+  --s-transformation: #a9c2c0;
+  --s-food: #cc8a5c;
 
-  --font-sans: var(--font-geist-sans), 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  /* Headings: Fenway Banner (licensed brand face, see src/app/brand-fonts.css).
+     Newsreader is the open-source stand-in until the font files are installed. */
+  --font-display: 'Fenway Banner', 'Newsreader Variable', 'Iowan Old Style', Georgia, serif;
+  --font-sans: 'Inter Variable', Inter, 'Helvetica Neue', Arial, sans-serif;
+  /* Technical labels use Inter with tabular figures (no third family). */
+  --font-mono: var(--font-sans);
 
   --pad: clamp(16px, 4vw, 64px);
   --gap: clamp(16px, 2vw, 32px);
@@ -74,12 +86,13 @@ html.lenis body {
 
 body {
   margin: 0;
+  font-variant-numeric: tabular-nums;
   background: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
   font-size: clamp(15px, 0.95vw + 2px, 18px);
   line-height: 1.5;
-  font-feature-settings: 'ss01', 'tnum' 0;
+  font-feature-settings: 'cv11', 'ss01';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -186,10 +199,11 @@ address {
 /* ------------------------------------------------------------- typography */
 
 .display {
-  font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 0.9;
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-optical-sizing: auto;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
   text-wrap: balance;
 }
 .display .line {
@@ -206,27 +220,27 @@ address {
   display: block;
 }
 .display--hero {
-  font-size: clamp(3.4rem, 13.5vw, 15.5rem);
-  letter-spacing: -0.06em;
-  line-height: 0.82;
+  font-size: clamp(3.6rem, 12.5vw, 14.5rem);
+  letter-spacing: -0.035em;
+  line-height: 0.86;
 }
 .display--xxl {
-  font-size: clamp(3rem, 11vw, 12rem);
-  letter-spacing: -0.055em;
-  line-height: 0.84;
+  font-size: clamp(3.2rem, 10vw, 11rem);
+  letter-spacing: -0.03em;
+  line-height: 0.9;
 }
 .display--xl {
-  font-size: clamp(2.6rem, 8vw, 8.5rem);
-  letter-spacing: -0.05em;
-  line-height: 0.88;
+  font-size: clamp(2.6rem, 7.4vw, 8rem);
+  letter-spacing: -0.025em;
+  line-height: 0.92;
 }
 .display--l {
   font-size: clamp(2.1rem, 5.2vw, 5.4rem);
 }
 .display--m {
-  font-size: clamp(1.6rem, 3vw, 3rem);
-  letter-spacing: -0.035em;
-  line-height: 0.98;
+  font-size: clamp(1.7rem, 3vw, 3.1rem);
+  letter-spacing: -0.015em;
+  line-height: 1.02;
 }
 .muted {
   color: var(--faint);
@@ -244,8 +258,8 @@ address {
   font-family: var(--font-mono);
   font-size: 11px;
   line-height: 1.4;
-  font-weight: 400;
-  letter-spacing: 0.08em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -478,25 +492,34 @@ address {
   align-items: center;
   gap: 14px;
 }
-.site-header__logo svg {
-  width: 54px;
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.logo img {
+  display: block;
   height: auto;
 }
-.logo__accent {
-  fill: var(--stage);
-  transition: fill 0.8s;
+.logo__mark {
+  width: 40px;
 }
-.site-header__legal {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  line-height: 1.25;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--paper) 60%, transparent);
-  transition: opacity 0.4s;
+.logo__word {
+  width: 150px;
+  transition: opacity 0.4s, transform 0.6s var(--ease-out);
+  transform-origin: left center;
 }
-.site-header[data-scrolled] .site-header__legal {
+.site-header[data-scrolled] .logo__word {
   opacity: 0;
+  transform: translateX(-8px);
+}
+@media (max-width: 480px) {
+  .logo__mark {
+    width: 34px;
+  }
+  .logo__word {
+    width: 124px;
+  }
 }
 
 .site-nav {
@@ -616,10 +639,10 @@ address {
   align-items: baseline;
   gap: 14px;
   font-size: clamp(2.2rem, 10vw, 4.5rem);
-  font-weight: 500;
-  letter-spacing: -0.045em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 1;
-  text-transform: uppercase;
 }
 .site-menu a small {
   font-family: var(--font-mono);
@@ -640,8 +663,7 @@ address {
 
 @media (max-width: 1023px) {
   .site-nav,
-  .site-header__cta,
-  .site-header__legal {
+  .site-header__cta {
     display: none;
   }
   .site-header__menu {
@@ -659,7 +681,7 @@ address {
 .site-footer {
   position: relative;
   padding-top: var(--section);
-  background: var(--ink);
+  background: var(--green-deep);
   color: var(--paper);
   border-top: 1px solid var(--line);
   overflow: hidden;
@@ -696,18 +718,16 @@ address {
   line-height: 1.7;
 }
 .site-footer__mark {
-  padding: 0 var(--pad);
+  display: flex;
+  justify-content: center;
+  padding: clamp(56px, 8vw, 120px) var(--pad) clamp(40px, 5vw, 72px);
+  border-top: 1px solid var(--line);
   max-width: var(--max);
   margin: 0 auto;
-  color: #1a1b17;
 }
-.site-footer__mark svg {
-  width: 100%;
+.site-footer__mark img {
+  width: min(560px, 78vw);
   height: auto;
-}
-.site-footer__mark circle,
-.site-footer__mark rect:nth-of-type(10) {
-  display: none;
 }
 .site-footer__bottom {
   display: flex;
@@ -1004,8 +1024,9 @@ address {
   left: -0.06em;
   z-index: -1;
   font-size: clamp(9rem, 22vw, 22rem);
-  font-weight: 500;
-  letter-spacing: -0.07em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 0.8;
   color: transparent;
   -webkit-text-stroke: 1px color-mix(in srgb, var(--c) 45%, transparent);
@@ -1071,8 +1092,9 @@ address {
 }
 .jpanel__metric-value {
   font-size: clamp(3rem, 5vw, 5.2rem);
-  font-weight: 500;
-  letter-spacing: -0.05em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 0.85;
   font-variant-numeric: tabular-nums;
 }
@@ -1351,10 +1373,10 @@ address {
 }
 .eco__detail-title {
   font-size: clamp(1.8rem, 2.6vw, 2.6rem);
-  font-weight: 500;
-  letter-spacing: -0.04em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 0.95;
-  text-transform: uppercase;
 }
 .eco__detail-cat {
   font-family: var(--font-mono);
@@ -1444,8 +1466,9 @@ address {
 .marquee--big {
   font-family: var(--font-sans);
   font-size: clamp(2.6rem, 7vw, 7rem);
-  font-weight: 500;
-  letter-spacing: -0.04em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   color: var(--fg);
   padding-block: clamp(16px, 2vw, 28px);
 }
@@ -1495,6 +1518,7 @@ address {
   transform: scaleX(var(--h-progress, 0));
 }
 .figures__intro {
+  flex-shrink: 0;
   width: min(560px, 80vw);
   display: flex;
   flex-direction: column;
@@ -1509,6 +1533,7 @@ address {
 }
 .figure {
   position: relative;
+  flex-shrink: 0;
   display: grid;
   align-content: center;
   gap: 8px;
@@ -1523,8 +1548,9 @@ address {
 }
 .figure__value {
   font-size: clamp(5rem, 15vw, 17rem);
-  font-weight: 500;
-  letter-spacing: -0.07em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 0.8;
   font-variant-numeric: tabular-nums;
   margin-left: -0.05em;
@@ -1535,9 +1561,9 @@ address {
 }
 .figure__unit {
   font-size: clamp(1.4rem, 2.4vw, 2.6rem);
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   margin-top: 18px;
 }
 .figure__label {
@@ -1614,9 +1640,9 @@ address {
 }
 .timeline-strip strong {
   font-size: clamp(1.1rem, 1.6vw, 1.6rem);
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
 }
 .timeline-strip span:last-child {
   font-family: var(--font-mono);
@@ -1663,8 +1689,9 @@ address {
 }
 .card__title {
   font-size: clamp(1.25rem, 1.5vw, 1.7rem);
-  font-weight: 500;
-  letter-spacing: -0.025em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 1.08;
   transition: color 0.3s;
 }
@@ -1783,7 +1810,7 @@ address {
   background:
     radial-gradient(70% 60% at 70% 30%, color-mix(in srgb, var(--c) 42%, transparent), transparent 70%),
     radial-gradient(60% 50% at 20% 90%, color-mix(in srgb, var(--c) 22%, transparent), transparent 70%),
-    linear-gradient(160deg, color-mix(in srgb, var(--c) 18%, #171714), #0f100e);
+    linear-gradient(160deg, color-mix(in srgb, var(--c) 18%, #18201d), #111614);
 }
 .visual__placeholder::before {
   content: '';
@@ -1811,8 +1838,9 @@ address {
   right: 0.06em;
   bottom: -0.16em;
   font-size: clamp(6rem, 14vw, 14rem);
-  font-weight: 500;
-  letter-spacing: -0.07em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 1;
   color: transparent;
   -webkit-text-stroke: 1px color-mix(in srgb, var(--paper) 35%, transparent);
@@ -1886,8 +1914,9 @@ address {
 }
 .statement__text {
   font-size: clamp(1.5rem, 2.8vw, 3rem);
-  font-weight: 500;
-  letter-spacing: -0.035em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 1.08;
   max-width: 28ch;
   text-wrap: balance;
@@ -1943,8 +1972,9 @@ address {
 }
 .chapter__period {
   font-size: clamp(3.5rem, 8vw, 9rem);
-  font-weight: 500;
-  letter-spacing: -0.06em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 0.85;
   color: var(--c);
 }
@@ -2008,9 +2038,9 @@ address {
 }
 .values h3 {
   font-size: clamp(1.4rem, 2vw, 2.2rem);
-  font-weight: 500;
-  letter-spacing: -0.035em;
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 1;
 }
 .values p {
@@ -2077,8 +2107,9 @@ address {
 }
 .vertical__num {
   font-size: clamp(3rem, 6vw, 6rem);
-  font-weight: 500;
-  letter-spacing: -0.06em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 0.8;
   color: var(--c);
 }
@@ -2105,8 +2136,9 @@ address {
 }
 .vertical__companies strong {
   font-size: clamp(1.2rem, 1.6vw, 1.7rem);
-  font-weight: 500;
-  letter-spacing: -0.03em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
 }
 .vertical__companies span {
   grid-column: 1;
@@ -2166,8 +2198,9 @@ address {
 }
 .business-hero__statement {
   font-size: clamp(1.3rem, 2.2vw, 2.4rem);
-  font-weight: 500;
-  letter-spacing: -0.03em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 1.1;
   max-width: 24ch;
   color: var(--c);
@@ -2281,9 +2314,9 @@ address {
 .capabilities h3,
 .commitments h3 {
   font-size: clamp(1.3rem, 1.8vw, 1.9rem);
-  font-weight: 500;
-  letter-spacing: -0.03em;
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 1;
 }
 .capabilities p,
@@ -2303,8 +2336,9 @@ address {
 }
 .bfigures__value {
   font-size: clamp(3.6rem, 7vw, 7.5rem);
-  font-weight: 500;
-  letter-spacing: -0.06em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 0.85;
   font-variant-numeric: tabular-nums;
 }
@@ -2340,8 +2374,9 @@ address {
 }
 .capacity strong {
   font-size: clamp(1.15rem, 1.5vw, 1.6rem);
-  font-weight: 500;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
 }
 .capacity span {
   color: var(--muted);
@@ -2362,9 +2397,9 @@ address {
 }
 .product h3 {
   font-size: 1.3rem;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
 }
 .product p {
   color: var(--muted);
@@ -2382,9 +2417,9 @@ address {
 }
 .sites strong {
   font-size: clamp(1.6rem, 2.6vw, 2.6rem);
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 1;
 }
 .certs {
@@ -2557,10 +2592,10 @@ address {
 }
 .person__name {
   font-size: clamp(1.8rem, 4vw, 4.2rem);
-  font-weight: 500;
-  letter-spacing: -0.05em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 0.95;
-  text-transform: uppercase;
 }
 .person__role {
   color: var(--muted);
@@ -2600,8 +2635,9 @@ address {
     repeating-linear-gradient(0deg, color-mix(in srgb, var(--paper) 6%, transparent) 0 1px, transparent 1px 6px),
     var(--ink-3);
   font-size: clamp(4rem, 8vw, 8rem);
-  font-weight: 500;
-  letter-spacing: -0.06em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   color: color-mix(in srgb, var(--paper) 30%, transparent);
   clip-path: inset(0 0 100% 0);
   transition: clip-path 1s var(--ease-out) 0.1s;
@@ -2660,9 +2696,9 @@ address {
   padding: 22px 24px;
   border: 1px solid var(--line-strong);
   font-size: clamp(1.1rem, 1.6vw, 1.6rem);
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
 }
 .gov__box--strong {
   background: var(--fg);
@@ -2728,8 +2764,9 @@ address {
 }
 .teams__value {
   font-size: clamp(3rem, 7vw, 7rem);
-  font-weight: 500;
-  letter-spacing: -0.06em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 0.85;
 }
 .teams__figures span:last-child {
@@ -2797,7 +2834,7 @@ address {
   border: 0;
   border-bottom: 1px solid var(--line-strong);
   background: transparent
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23efebe3' fill='none'/%3E%3C/svg%3E")
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23f6f2e1' fill='none'/%3E%3C/svg%3E")
     right 4px center no-repeat;
   color: var(--fg);
   font: inherit;
@@ -2818,8 +2855,9 @@ address {
   display: block;
   font-family: var(--font-sans);
   font-size: 3rem;
-  font-weight: 500;
-  letter-spacing: -0.05em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 0.9;
   color: var(--fg);
 }
@@ -2845,8 +2883,9 @@ address {
 }
 .job__title {
   font-size: clamp(1.2rem, 1.8vw, 1.9rem);
-  font-weight: 500;
-  letter-spacing: -0.025em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
 }
 .job__meta {
   color: var(--muted);
@@ -2941,8 +2980,9 @@ address {
 }
 .contact__big {
   font-size: clamp(1.6rem, 3vw, 3rem);
-  font-weight: 500;
-  letter-spacing: -0.04em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 1;
   transition: color 0.3s;
   overflow-wrap: anywhere;
@@ -3078,11 +3118,11 @@ address {
 }
 .field[data-invalid] input,
 .field[data-invalid] textarea {
-  border-color: var(--accent);
+  border-color: var(--error);
 }
 .field__error {
   font-size: 12px;
-  color: var(--accent);
+  color: var(--error);
 }
 .form__consent {
   display: flex;
@@ -3096,7 +3136,7 @@ address {
   accent-color: var(--ink);
 }
 .form__consent[data-invalid] {
-  color: var(--accent);
+  color: var(--error);
 }
 .form .btn {
   justify-self: start;
@@ -3146,8 +3186,9 @@ address {
 }
 .article__standfirst {
   font-size: clamp(1.3rem, 2vw, 2rem);
-  font-weight: 500;
-  letter-spacing: -0.03em;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
   line-height: 1.15;
 }
 .article__text {
@@ -3163,7 +3204,7 @@ address {
   line-height: 0.82;
   font-weight: 500;
   margin: 0.04em 0.1em 0 0;
-  color: var(--c, var(--accent));
+  color: var(--c, var(--error));
 }
 .article .visual {
   --paper: #efebe3;
@@ -3182,9 +3223,9 @@ address {
 .prose h2 {
   margin-top: 24px;
   font-size: 1.4rem;
-  font-weight: 500;
-  letter-spacing: -0.02em;
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.015em;
 }
 .prose p {
   color: var(--muted);

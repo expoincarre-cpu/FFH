@@ -1,25 +1,27 @@
+/* eslint-disable @next/next/no-img-element */
+
 /**
- * FFH wordmark — geometric letterforms with the five-node chain
- * (nutrition → hatchery → farming → transformation → food) beneath.
- * Replace with the official logo files when supplied (public/brand/).
+ * Official FFH identity (FERGUS brand guidelines). Assets live in public/brand:
+ *  - monogram  "FF" mark — gradient (premium), gold (flat) or cream (mono)
+ *  - wordmark  "Fettah Financial — Holding"
+ *  - lockup    monogram + wordmark, for light (…-green) or dark (…-cream) grounds
  */
-export function Logo({ className, title = 'FFH — Fettah Financial Holding' }: { className?: string; title?: string }) {
+type Finish = 'gradient' | 'gold' | 'cream'
+
+export function Monogram({ finish = 'gradient', className }: { finish?: Finish; className?: string }) {
+  return <img src={`/brand/ffh-monogram-${finish}.webp`} alt="" width={707} height={651} className={className} />
+}
+
+export function Logo({ finish = 'gradient', className }: { finish?: Finish; className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 49 29" role="img" aria-label={title} fill="currentColor">
-      <title>{title}</title>
-      <rect x="0" y="0" width="4.2" height="20" />
-      <rect x="0" y="0" width="13" height="4" />
-      <rect x="0" y="8" width="10.5" height="3.8" />
-      <rect x="17" y="0" width="4.2" height="20" />
-      <rect x="17" y="0" width="13" height="4" />
-      <rect x="17" y="8" width="10.5" height="3.8" />
-      <rect x="34" y="0" width="4.2" height="20" />
-      <rect x="44.8" y="0" width="4.2" height="20" />
-      <rect x="34" y="8" width="15" height="3.8" />
-      <rect x="1" y="26.4" width="47" height="0.6" opacity="0.5" />
-      {[0, 1, 2, 3, 4].map((i) => (
-        <circle key={i} cx={2.1 + i * 11.2} cy={26.7} r={1.6} className={i === 4 ? 'logo__accent' : undefined} />
-      ))}
-    </svg>
+    <span className={`logo ${className ?? ''}`}>
+      <Monogram finish={finish} className="logo__mark" />
+      <img src={`/brand/ffh-wordmark-${finish === 'gradient' ? 'gold' : finish}.webp`} alt="Fettah Financial Holding" width={2000} height={320} className="logo__word" />
+    </span>
   )
+}
+
+export function Lockup({ ground = 'dark', className }: { ground?: 'dark' | 'light'; className?: string }) {
+  const file = ground === 'dark' ? 'ffh-lockup-gradient-cream' : 'ffh-lockup-gradient-green'
+  return <img src={`/brand/${file}.webp`} alt="Fettah Financial Holding" width={2000} height={1014} className={className} />
 }

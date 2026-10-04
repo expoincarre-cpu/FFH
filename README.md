@@ -15,7 +15,9 @@ npm run typecheck
 - **Next.js 16** (App Router, static generation) · React 19 · TypeScript
 - **Three.js + React Three Fiber** for the 3D ecosystem
 - **GSAP + ScrollTrigger** for scroll-driven motion, **Lenis** for smooth scrolling
-- **Geist / Geist Mono** (self-hosted through the `geist` package)
+- **Brand identity** (FERGUS guidelines): palette `#0F3525` deep green · `#D1B572` gold ·
+  `#F6F2E1` cream · `#3D6D55` green · `#1B1E1F` charcoal; headings in **Fenway Banner**, text in
+  **Inter** (self-hosted via `@fontsource-variable/inter`). Logo files are in `public/brand/`.
 
 ## Architecture
 
@@ -93,8 +95,11 @@ Marked `placeholder: true` in `src/content/*`:
 - **Leadership** — names (`Prénom Nom`) and biographies.
 - **Newsroom articles and job offers** — illustrative.
 - **Headquarters address, phone, emails**.
-- **Brand colour** — `--brand` in `globals.css` is a provisional wheat gold; the logo in
-  `components/layout/Logo.tsx` is a typographic stand-in until official brand files are supplied.
+- **Fenway Banner web fonts** — the licensed heading face isn't bundled; headings fall back to
+  Newsreader (open source). Drop the `.woff2` files in `public/fonts/` and uncomment
+  `src/app/brand-fonts.css`.
+- **Vector logo** — `public/brand/` holds high-resolution transparent WebP exports of the supplied
+  logos; replace with SVG masters when available (same file names).
 - **Photography / video** — every image slot renders an art-directed placeholder until a `Media`
   object is provided in the CMS.
 

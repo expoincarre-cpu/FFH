@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { notFound } from 'next/navigation'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
+import '@fontsource-variable/inter'
+import '@fontsource-variable/newsreader'
 import { hasLocale, htmlLang, locales, type Locale } from '@/i18n/config'
 import { getDictionary } from '@/i18n/dictionaries'
 import { getArticles, getBusinesses } from '@/lib/cms'
@@ -10,6 +10,7 @@ import { Header } from '@/components/layout/Header'
 import { Footer } from '@/components/layout/Footer'
 import { SmoothScroll } from '@/components/motion/SmoothScroll'
 import { MotionController } from '@/components/motion/MotionController'
+import '../brand-fonts.css'
 import '../globals.css'
 
 export function generateStaticParams() {
@@ -29,7 +30,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0d0e0c',
+  themeColor: '#0f3525',
   colorScheme: 'dark',
 }
 
@@ -47,7 +48,7 @@ export default async function LocaleLayout({
   const articleSlugs = articles.map((a) => a.slug as Record<Locale, string>)
 
   return (
-    <html lang={htmlLang[locale]} className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang={htmlLang[locale]}>
       <body>
         <a href="#main" className="skip-link">
           {dict.nav.skip}

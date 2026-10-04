@@ -301,7 +301,7 @@ function Dust({ count }: { count: number }) {
         uniforms: {
           uTime: { value: 0 },
           uPixelRatio: { value: gl.getPixelRatio() },
-          uColor: { value: new THREE.Color('#f3dcb0') },
+          uColor: { value: new THREE.Color('#e9d6a6') },
         },
       }),
     [gl],
@@ -322,7 +322,7 @@ export function World({ colors, density, particles }: WorldProps) {
       <directionalLight position={[40, 60, 30]} intensity={2.2} color="#fff4e6" />
       <directionalLight position={[-30, 20, -60]} intensity={0.6} color="#b7c8d4" />
 
-      <Ground color="#e8dcc4" />
+      <Ground color="#d1b572" />
       <Thread colors={colors} />
       <ZoneRings colors={colors} />
       <Flow colors={colors} density={density} />

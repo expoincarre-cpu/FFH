@@ -57,7 +57,6 @@ export function Header({ locale, dict, articleSlugs }: Props) {
       <div className="site-header__bar">
         <Link href={href(locale, 'home')} className="site-header__logo" aria-label="FFH — Accueil / Home">
           <Logo />
-          <span className="site-header__legal">Fettah Financial<br />Holding</span>
         </Link>
 
         <nav className="site-nav" aria-label="Navigation principale / Main">

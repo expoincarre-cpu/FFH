@@ -1,0 +1,23 @@
+/*
+ * Fenway Banner — FFH heading typeface (commercial licence).
+ *
+ * The site currently falls back to Newsreader (open source). Once the group
+ * supplies the licensed web fonts, add the files to /public/fonts and
+ * uncomment the declarations below; `--font-display` already lists
+ * 'Fenway Banner' first, so no other change is needed.
+ */
+
+/*
+@font-face {
+  font-family: 'Fenway Banner';
+  src: url('/fonts/FenwayBanner-Light.woff2') format('woff2');
+  font-weight: 300;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Fenway Banner';
+  src: url('/fonts/FenwayBanner-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+*/

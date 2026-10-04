@@ -28,7 +28,7 @@ export const stages: Stage[] = [
       label: { fr: "d'aliments produits", en: 'of feed produced' },
       placeholder: true,
     },
-    color: '#B8925A',
+    color: '#D1B572',
   },
   {
     id: 'hatchery',
@@ -51,7 +51,7 @@ export const stages: Stage[] = [
       label: { fr: 'nés dans nos couvoirs', en: 'hatched in our facilities' },
       placeholder: true,
     },
-    color: '#E2A867',
+    color: '#E9D6A6',
   },
   {
     id: 'farming',
@@ -74,7 +74,7 @@ export const stages: Stage[] = [
       label: { fr: "d'élevage", en: 'under management' },
       placeholder: true,
     },
-    color: '#8E9C5C',
+    color: '#82A98A',
   },
   {
     id: 'transformation',
@@ -96,7 +96,7 @@ export const stages: Stage[] = [
       label: { fr: 'capacité de transformation', en: 'processing capacity' },
       placeholder: true,
     },
-    color: '#A8C0C6',
+    color: '#A9C2C0',
   },
   {
     id: 'food',
@@ -119,7 +119,7 @@ export const stages: Stage[] = [
       label: { fr: 'au Maroc', en: 'across Morocco' },
       placeholder: true,
     },
-    color: '#D4683F',
+    color: '#CC8A5C',
   },
 ]
 

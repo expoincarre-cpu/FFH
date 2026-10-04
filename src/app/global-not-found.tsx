@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
-import { GeistSans } from 'geist/font/sans'
-import { GeistMono } from 'geist/font/mono'
+import '@fontsource-variable/inter'
+import '@fontsource-variable/newsreader'
 import './globals.css'
 
 export const metadata: Metadata = { title: '404 — FFH' }
 
 export default function GlobalNotFound() {
   return (
-    <html lang="fr" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="fr">
       <body>
         <main className="notfound">
           <p className="label">404 — FFH</p>
