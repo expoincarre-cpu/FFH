@@ -12,11 +12,13 @@ export function Monogram({ finish = 'gradient', className }: { finish?: Finish; 
   return <img src={`/brand/ffh-monogram-${finish}.webp`} alt="" width={707} height={651} className={className} />
 }
 
-export function Logo({ finish = 'gradient', className }: { finish?: Finish; className?: string }) {
+/** Monogram + wordmark; the wordmark switches to green on the light theme. */
+export function Logo({ className }: { className?: string }) {
   return (
     <span className={`logo ${className ?? ''}`}>
-      <Monogram finish={finish} className="logo__mark" />
-      <img src={`/brand/ffh-wordmark-${finish === 'gradient' ? 'gold' : finish}.webp`} alt="Fettah Financial Holding" width={2000} height={320} className="logo__word" />
+      <Monogram finish="gradient" className="logo__mark" />
+      <img src="/brand/ffh-wordmark-gold.webp" alt="Fettah Financial Holding" width={2000} height={320} className="logo__word logo-on-dark" />
+      <img src="/brand/ffh-wordmark-green.webp" alt="" aria-hidden="true" width={2000} height={320} className="logo__word logo-on-light" />
     </span>
   )
 }

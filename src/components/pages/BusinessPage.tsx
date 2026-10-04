@@ -3,7 +3,8 @@ import { notFound } from 'next/navigation'
 import type { Locale } from '@/i18n/config'
 import { getDictionary } from '@/i18n/dictionaries'
 import { href } from '@/i18n/routes'
-import { getBusiness, getBusinesses, getStages } from '@/lib/cms'
+import { businessColor, getBusiness, getBusinesses, getStages } from '@/lib/cms'
+import { CompanyLogo } from '@/components/ui/CompanyLogo'
 import { pad } from '@/lib/format'
 import { Lines } from '@/components/ui/Lines'
 import { Visual } from '@/components/ui/Visual'
@@ -16,8 +17,8 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
   const [business, all, stages] = await Promise.all([getBusiness(slug), getBusinesses(), getStages()])
   if (!business) notFound()
 
-  const stage = stages.find((s) => s.id === business.stage)!
-  const color = stage.color
+  const stage = stages.find((s) => s.id === business.stage)
+  const color = businessColor(business)
   const upstream = all.filter((b) => b.suppliesTo.includes(business.slug))
   const downstream = all.filter((b) => business.suppliesTo.includes(b.slug))
   const next = all[(all.findIndex((b) => b.slug === business.slug) + 1) % all.length]
@@ -37,6 +38,7 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
               </Link>{' '}
               / {business.category[locale]}
             </p>
+            {business.logo && <CompanyLogo business={business} locale={locale} size="l" className="business-hero__logo" />}
             <Lines as="h1" lines={[business.name]} className="display display--xxl business-hero__name" />
             <p className="business-hero__statement" data-reveal="up" data-delay="0.2">
               {business.statement[locale]}
@@ -47,7 +49,7 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
             locale={locale}
             color={color}
             caption={`${dict.common.visualPending} — ${business.name}`}
-            index={pad(stage.index)}
+            index={stage ? pad(stage.index) : undefined}
             ratio="16 / 9"
             className="business-hero__visual"
             priority
@@ -55,6 +57,7 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
         </div>
 
         {/* Position in the chain */}
+        {stage && (
         <div className="container">
           <div className="chain-position" aria-label={t.inChain}>
             <p className="label">{t.inChain}</p>
@@ -92,6 +95,7 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
             </p>
           </div>
         </div>
+        )}
       </header>
 
       {/* ABOUT */}
@@ -135,6 +139,7 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
 
       {/* INDUSTRIAL CAPACITY + FIGURES */}
       <section className="section bsec bsec--dark">
+        {business.figures.length > 0 && (
         <div className="container bsec__grid">
           <h2 className="bsec__title label">
             <span>{num()}</span> {t.figures}
@@ -152,6 +157,7 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
             {business.placeholder && <p className="label note">{dict.common.placeholderNotice}</p>}
           </div>
         </div>
+        )}
         <div className="container bsec__grid">
           <h2 className="bsec__title label">
             <span>{num()}</span> {t.capacity}
@@ -197,6 +203,7 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
       </section>
 
       {/* LOCATIONS */}
+      {business.sites.length > 0 && (
       <section className="section bsec">
         <div className="container bsec__grid">
           <h2 className="bsec__title label">
@@ -223,6 +230,7 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
           </div>
         </div>
       </section>
+      )}
 
       {/* QUALITY & CERTIFICATIONS */}
       <section className="section bsec">
@@ -276,7 +284,7 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
       </section>
 
       {/* NEXT */}
-      <Link href={href(locale, 'business', { slug: next.slug })} className="next-business" style={{ '--c': stages.find((s) => s.id === next.stage)?.color } as React.CSSProperties}>
+      <Link href={href(locale, 'business', { slug: next.slug })} className="next-business" style={{ '--c': businessColor(next) } as React.CSSProperties}>
         <span className="label">{t.next}</span>
         <span className="display display--xl">{next.name}</span>
         <span className="next-business__cat">{next.category[locale]} →</span>

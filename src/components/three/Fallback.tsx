@@ -29,8 +29,8 @@ function Silo({ x, w, h, c }: { x: number; w: number; h: number; c: string }) {
   const y = HORIZON + 80
   return (
     <g>
-      <rect x={x} y={y - h} width={w} height={h} fill="#1b1914" stroke="currentColor" strokeOpacity="0.55" />
-      <path d={`M${x} ${y - h} L${x + w / 2} ${y - h - w * 0.35} L${x + w} ${y - h}`} fill="#1b1914" stroke="currentColor" strokeOpacity="0.55" />
+      <rect x={x} y={y - h} width={w} height={h} className="fb-solid" stroke="currentColor" strokeOpacity="0.55" />
+      <path d={`M${x} ${y - h} L${x + w / 2} ${y - h - w * 0.35} L${x + w} ${y - h}`} className="fb-solid" stroke="currentColor" strokeOpacity="0.55" />
       {[0.25, 0.5, 0.75].map((k) => (
         <line key={k} x1={x} x2={x + w} y1={y - h * k} y2={y - h * k} stroke={c} strokeOpacity="0.5" />
       ))}
@@ -45,8 +45,8 @@ function Nutrition({ c }: { c: string }) {
         {[0, 1, 2, 3, 4].map((i) => (
           <Silo key={i} x={330 + i * 120} w={96} h={360 - (i % 2) * 40} c={c} />
         ))}
-        <rect x={960} y={HORIZON - 380} width={130} height={460} fill="#1b1914" stroke="currentColor" strokeOpacity="0.55" />
-        <rect x={1090} y={HORIZON - 120} width={240} height={200} fill="#1b1914" stroke="currentColor" strokeOpacity="0.55" />
+        <rect x={960} y={HORIZON - 380} width={130} height={460} className="fb-solid" stroke="currentColor" strokeOpacity="0.55" />
+        <rect x={1090} y={HORIZON - 120} width={240} height={200} className="fb-solid" stroke="currentColor" strokeOpacity="0.55" />
         <rect x={975} y={HORIZON - 300} width={100} height={6} fill={c} />
         <line x1={330} y1={HORIZON - 330} x2={1025} y2={HORIZON - 330} stroke="currentColor" strokeOpacity="0.6" strokeWidth="10" />
       </g>

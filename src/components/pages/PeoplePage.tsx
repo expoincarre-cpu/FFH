@@ -1,6 +1,6 @@
 import type { Locale } from '@/i18n/config'
 import { getDictionary } from '@/i18n/dictionaries'
-import { getBusinesses, getGroup, getPeople, getStages } from '@/lib/cms'
+import { businessColor, getBusinesses, getGroup, getPeople, getStages } from '@/lib/cms'
 import { PageHero } from '@/components/ui/PageHero'
 import { PeopleList } from '@/components/ui/PeopleList'
 import { SectionHead } from '@/components/ui/SectionHead'
@@ -43,7 +43,7 @@ export async function PeoplePage({ locale }: { locale: Locale }) {
 
       <section className="section section--governance">
         <div className="container">
-          <SectionHead eyebrow={dict.people.governance} index="B" title={locale === 'fr' ? 'Une holding, sept entreprises.' : 'One holding, seven companies.'} />
+          <SectionHead eyebrow={dict.people.governance} index="B" title={locale === 'fr' ? `Une holding, ${businesses.length} entreprises.` : `One holding, ${businesses.length} companies.`} />
           <div className="gov" data-reveal="stagger">
             <div className="gov__tier">
               <p className="label">01</p>
@@ -67,7 +67,7 @@ export async function PeoplePage({ locale }: { locale: Locale }) {
               <p className="label">03</p>
               <ul>
                 {businesses.map((b) => (
-                  <li key={b.slug} style={{ '--c': stages.find((s) => s.id === b.stage)?.color } as React.CSSProperties}>
+                  <li key={b.slug} style={{ '--c': businessColor(b) } as React.CSSProperties}>
                     <strong>{b.name}</strong>
                     <span>{b.category[locale]}</span>
                   </li>

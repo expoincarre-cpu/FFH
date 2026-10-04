@@ -58,15 +58,16 @@ export default function Scene({ tier, colors, running, onFail }: Props) {
       className="journey__canvas"
       dpr={settings.dpr}
       frameloop={running ? 'always' : 'never'}
+      shadows={settings.shadows > 0 ? 'soft' : false}
       gl={{ antialias: settings.antialias, powerPreference: 'high-performance', alpha: false, stencil: false }}
-      camera={{ fov: 42, near: 0.5, far: 700, position: STATIONS[0].pos }}
+      camera={{ fov: 40, near: 0.5, far: 1200, position: STATIONS[0].pos }}
       onCreated={({ gl }) => {
         gl.toneMapping = THREE.ACESFilmicToneMapping
         gl.toneMappingExposure = 1.05
       }}
       aria-hidden="true"
     >
-      <World colors={colors} density={settings.density} particles={settings.particles} />
+      <World colors={colors} density={settings.density} particles={settings.particles} shadowSize={settings.shadows} />
       <PerformanceGuard onFail={onFail} />
     </Canvas>
   )

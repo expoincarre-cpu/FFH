@@ -188,9 +188,9 @@ export const group: Group = {
     },
     {
       id: 'companies',
-      value: 7,
+      value: 9,
       unit: { fr: 'entreprises', en: 'companies' },
-      label: { fr: 'une chaîne intégrée', en: 'one integrated chain' },
+      label: { fr: 'dont 7 dans la filière avicole', en: 'including 7 in the poultry chain' },
     },
     {
       id: 'sites',

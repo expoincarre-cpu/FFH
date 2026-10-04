@@ -11,6 +11,7 @@ type Node = {
   description: string
   suppliesTo: string[]
   href?: string
+  logo?: string
 }
 
 type StageCol = { id: string; index: number; name: string; color: string }
@@ -160,6 +161,12 @@ export function Ecosystem({ stages, nodes, market, labels }: Props) {
         <p className="label">
           {currentStage && `${String(currentStage.index).padStart(2, '0')} — ${currentStage.name}`}
         </p>
+        {current.logo ? (
+          <span className="company-logo company-logo--l eco__detail-logo">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={current.logo} alt="" />
+          </span>
+        ) : null}
         <h3 className="eco__detail-title">{current.name}</h3>
         <p className="eco__detail-cat">{current.category}</p>
         <p className="eco__detail-body">{current.description}</p>

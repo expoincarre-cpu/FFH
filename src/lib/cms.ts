@@ -37,7 +37,8 @@ export async function getVerticals() {
 
 export async function getBusinesses() {
   const order = stages.map((s) => s.id)
-  return [...businesses].sort((a, b) => order.indexOf(a.stage) - order.indexOf(b.stage))
+  const rank = (b: Business) => (b.stage ? order.indexOf(b.stage) : order.length)
+  return [...businesses].sort((a, b) => rank(a) - rank(b))
 }
 
 export async function getBusiness(slug: string): Promise<Business | undefined> {
@@ -62,4 +63,14 @@ export async function getArticle(locale: Locale, slug: string) {
 
 export async function getJobs() {
   return [...jobs].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
+}
+
+/** Businesses that belong to the integrated poultry value chain. */
+export async function getChainBusinesses() {
+  return (await getBusinesses()).filter((b): b is Business & { stage: StageId } => Boolean(b.stage))
+}
+
+/** Accent colour of a business: its stage colour, or its own accent outside the chain. */
+export function businessColor(b: Pick<Business, 'stage' | 'accent'>) {
+  return stages.find((s) => s.id === b.stage)?.color ?? b.accent ?? '#3d6d55'
 }

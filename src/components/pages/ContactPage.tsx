@@ -2,7 +2,7 @@ import Link from 'next/link'
 import type { Locale } from '@/i18n/config'
 import { getDictionary } from '@/i18n/dictionaries'
 import { href } from '@/i18n/routes'
-import { getBusinesses, getGroup, getStages } from '@/lib/cms'
+import { businessColor, getBusinesses, getGroup, getStages } from '@/lib/cms'
 import { PageHero } from '@/components/ui/PageHero'
 import { MoroccoMap } from '@/components/ui/MoroccoMap'
 import { ContactForm } from '@/components/ui/ContactForm'
@@ -11,7 +11,7 @@ export async function ContactPage({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale)
   const [group, businesses, stages] = await Promise.all([getGroup(), getBusinesses(), getStages()])
   const sites = businesses.flatMap((b) =>
-    b.sites.map((s) => ({ ...s, color: stages.find((x) => x.id === b.stage)?.color, label: `${b.name} — ${s.city}` })),
+    b.sites.map((s) => ({ ...s, color: businessColor(b), label: `${b.name} — ${s.city}` })),
   )
   const hq = group.headquarters
 
@@ -41,7 +41,7 @@ export async function ContactPage({ locale }: { locale: Locale }) {
               <p className="label">{dict.contact.sites}</p>
               <ul className="contact__sites">
                 {businesses.map((b) => (
-                  <li key={b.slug} style={{ '--c': stages.find((s) => s.id === b.stage)?.color } as React.CSSProperties}>
+                  <li key={b.slug} style={{ '--c': businessColor(b) } as React.CSSProperties}>
                     <Link href={href(locale, 'business', { slug: b.slug })}>
                       <strong>{b.name}</strong>
                       <span>{b.sites.map((s) => s.city).join(', ')}</span>

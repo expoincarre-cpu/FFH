@@ -2,7 +2,8 @@ import Link from 'next/link'
 import type { Locale } from '@/i18n/config'
 import { getDictionary } from '@/i18n/dictionaries'
 import { href } from '@/i18n/routes'
-import { getBusinesses, getDomains, getStages, getVerticals } from '@/lib/cms'
+import { businessColor, getBusinesses, getDomains, getStages, getVerticals } from '@/lib/cms'
+import { CompanyLogo } from '@/components/ui/CompanyLogo'
 import { pad } from '@/lib/format'
 import { PageHero } from '@/components/ui/PageHero'
 
@@ -45,8 +46,8 @@ export async function ExpertisePage({ locale }: { locale: Locale }) {
                 .map((id) => verticals.find((v) => v.id === id))
                 .filter((v) => v !== undefined)
                 .map((vertical, i) => {
-                  const color = stages.find((s) => s.id === vertical.stages[0])?.color
                   const companies = businesses.filter((b) => b.vertical === vertical.id)
+                  const color = companies[0] ? businessColor(companies[0]) : undefined
                   return (
                     <li key={vertical.id} className="vertical" style={{ '--c': color } as React.CSSProperties}>
                       <div className="vertical__num" aria-hidden="true">
@@ -54,7 +55,8 @@ export async function ExpertisePage({ locale }: { locale: Locale }) {
                       </div>
                       <div className="vertical__main">
                         <p className="label">
-                          {dict.expertise.vertical} — {vertical.stages.map((s) => stages.find((x) => x.id === s)?.name[locale]).join(' / ')}
+                          {dict.expertise.vertical}
+                          {vertical.stages.length > 0 && ` — ${vertical.stages.map((s) => stages.find((x) => x.id === s)?.name[locale]).join(' / ')}`}
                         </p>
                         <h3 className="display display--m" data-reveal="up">
                           {vertical.name[locale]}
@@ -65,6 +67,7 @@ export async function ExpertisePage({ locale }: { locale: Locale }) {
                         {companies.map((b) => (
                           <li key={b.slug}>
                             <Link href={href(locale, 'business', { slug: b.slug })}>
+                              <CompanyLogo business={b} locale={locale} size="m" className="vertical__logo" />
                               <strong>{b.name}</strong>
                               <span>{b.category[locale]}</span>
                               <span className="vertical__statement">{b.statement[locale]}</span>

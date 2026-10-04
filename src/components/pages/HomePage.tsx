@@ -2,7 +2,8 @@ import Link from 'next/link'
 import type { Locale } from '@/i18n/config'
 import { getDictionary } from '@/i18n/dictionaries'
 import { href } from '@/i18n/routes'
-import { getArticles, getBusinesses, getGroup, getStages } from '@/lib/cms'
+import { getArticles, getChainBusinesses, getGroup, getStages } from '@/lib/cms'
+import { CompanyLogo } from '@/components/ui/CompanyLogo'
 import { pad } from '@/lib/format'
 import { Journey } from '@/components/home/Journey'
 import { Ecosystem } from '@/components/home/Ecosystem'
@@ -15,7 +16,7 @@ import { ArticleCard } from '@/components/ui/ArticleCard'
 
 export async function HomePage({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale)
-  const [group, stages, businesses, articles] = await Promise.all([getGroup(), getStages(), getBusinesses(), getArticles()])
+  const [group, stages, businesses, articles] = await Promise.all([getGroup(), getStages(), getChainBusinesses(), getArticles()])
 
   return (
     <>
@@ -90,8 +91,11 @@ export async function HomePage({ locale }: { locale: Locale }) {
                     {companies.map((b) => (
                       <li key={b.slug}>
                         <Link href={href(locale, 'business', { slug: b.slug })}>
-                          <strong>{b.name}</strong>
-                          <span>{b.category[locale]}</span>
+                          <CompanyLogo business={b} locale={locale} size="s" />
+                          <span>
+                            <strong>{b.name}</strong>
+                            <span>{b.category[locale]}</span>
+                          </span>
                           <i aria-hidden="true">→</i>
                         </Link>
                       </li>
@@ -153,6 +157,7 @@ export async function HomePage({ locale }: { locale: Locale }) {
               slug: b.slug,
               name: b.name,
               stage: b.stage,
+              logo: b.logo?.src,
               category: b.category[locale],
               description: b.description[locale],
               suppliesTo: b.suppliesTo,

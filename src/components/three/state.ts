@@ -9,6 +9,8 @@ export const journey = {
   smooth: 0,
   /** Scroll progress at which each camera station is centred on screen. */
   anchors: [0, 0.1, 0.22, 0.36, 0.5, 0.64, 0.78, 1],
+  /** Visual theme — daylight ('light') or dusk ('dark') world. */
+  theme: 'dark' as 'light' | 'dark',
   /** Normalised pointer, -1 → 1. */
   pointer: { x: 0, y: 0 },
 }

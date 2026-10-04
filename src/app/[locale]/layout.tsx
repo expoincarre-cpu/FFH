@@ -7,6 +7,7 @@ import { getDictionary } from '@/i18n/dictionaries'
 import { getArticles, getBusinesses } from '@/lib/cms'
 import { siteUrl } from '@/lib/site'
 import { Header } from '@/components/layout/Header'
+import { themeScript } from '@/components/layout/ThemeToggle'
 import { Footer } from '@/components/layout/Footer'
 import { SmoothScroll } from '@/components/motion/SmoothScroll'
 import { MotionController } from '@/components/motion/MotionController'
@@ -30,8 +31,11 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 }
 
 export const viewport: Viewport = {
-  themeColor: '#0f3525',
-  colorScheme: 'dark',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f6f2e1' },
+    { media: '(prefers-color-scheme: dark)', color: '#151918' },
+  ],
+  colorScheme: 'dark light',
 }
 
 export default async function LocaleLayout({
@@ -48,7 +52,10 @@ export default async function LocaleLayout({
   const articleSlugs = articles.map((a) => a.slug as Record<Locale, string>)
 
   return (
-    <html lang={htmlLang[locale]}>
+    <html lang={htmlLang[locale]} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>
         <a href="#main" className="skip-link">
           {dict.nav.skip}

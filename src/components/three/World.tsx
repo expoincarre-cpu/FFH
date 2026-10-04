@@ -22,6 +22,8 @@ import { Hatchery } from './zones/Hatchery'
 import { Farming } from './zones/Farming'
 import { Transformation } from './zones/Transformation'
 import { Food } from './zones/Food'
+import { Atmosphere } from './Atmosphere'
+import { soil, tiled } from './textures'
 
 export type WorldProps = {
   /** Stage accent colours, from the CMS (nutrition → food). */
@@ -30,6 +32,8 @@ export type WorldProps = {
   density: number
   /** Ambient particle count. */
   particles: number
+  /** Shadow map resolution (0 disables shadows). */
+  shadowSize: number
 }
 
 const posCurve = new THREE.CatmullRomCurve3(STATIONS.map((s) => new THREE.Vector3(...s.pos)), false, 'centripetal', 0.5)
@@ -39,19 +43,11 @@ const bgColors = STATION_BG.map((c) => new THREE.Color(c))
 /* ----------------------------------------------------------------- CAMERA */
 
 function CameraRig() {
-  const { camera, scene } = useThree()
+  const { camera } = useThree()
   const p = useMemo(() => new THREE.Vector3(), [])
   const t = useMemo(() => new THREE.Vector3(), [])
   const look = useMemo(() => new THREE.Vector3(...STATIONS[0].target), [])
   const pointer = useMemo(() => new THREE.Vector2(), [])
-  const bg = useMemo(() => new THREE.Color(STATION_BG[0]), [])
-  const fog = useMemo(() => new THREE.Fog(STATION_BG[0], STATION_FOG[0][0], STATION_FOG[0][1]), [])
-
-  useMemo(() => {
-    scene.background = bg
-    scene.fog = fog
-  }, [scene, bg, fog])
-
   useFrame((state, dt) => {
     const delta = Math.min(dt, 0.1)
     journey.smooth = THREE.MathUtils.damp(journey.smooth, journey.progress, 2.6, delta)
@@ -66,39 +62,19 @@ function CameraRig() {
     camera.position.copy(p)
     look.lerp(t, 1 - Math.exp(-6 * delta))
     camera.lookAt(look)
-
-    // Atmosphere follows the stage.
-    const f = u * (STATIONS.length - 1)
-    const i = Math.min(Math.floor(f), STATIONS.length - 2)
-    const k = f - i
-    bg.copy(bgColors[i]).lerp(bgColors[i + 1], k)
-    fog.color.copy(bg)
-    fog.near = THREE.MathUtils.lerp(STATION_FOG[i][0], STATION_FOG[i + 1][0], k)
-    fog.far = THREE.MathUtils.lerp(STATION_FOG[i][1], STATION_FOG[i + 1][1], k)
   })
   return null
 }
 
 /* ----------------------------------------------------------------- GROUND */
 
-function Ground({ color }: { color: string }) {
-  const grid = useMemo(() => {
-    const g = new THREE.GridHelper(900, 225, color, color)
-    const m = g.material as THREE.LineBasicMaterial
-    m.transparent = true
-    m.opacity = 0.07
-    m.depthWrite = false
-    g.position.set(0, 0.01, -120)
-    return g
-  }, [color])
-
+function Ground() {
+  const map = useMemo(() => tiled(soil(), 90, 90), [])
   return (
-    <group>
-      <mesh rotation-x={-Math.PI / 2} position={[0, 0, -120]} material={materials.ground}>
-        <planeGeometry args={[900, 900]} />
-      </mesh>
-      <primitive object={grid} />
-    </group>
+    <mesh rotation-x={-Math.PI / 2} position={[0, 0, -120]} receiveShadow>
+      <planeGeometry args={[900, 900]} />
+      <meshStandardMaterial map={map} roughness={1} />
+    </mesh>
   )
 }
 
@@ -168,7 +144,7 @@ function Thread({ colors }: { colors: string[] }) {
     material.uniforms.uTime.value = state.clock.elapsedTime
   })
 
-  return <mesh geometry={geometry} material={material} />
+  return <mesh geometry={geometry} material={material} userData={{ noShadow: true }} />
 }
 
 /** Stage markers — survey rings on the ground at each zone. */
@@ -265,11 +241,12 @@ const dustVertex = /* glsl */ `
 `
 const dustFragment = /* glsl */ `
   uniform vec3 uColor;
+  uniform float uAlpha;
   varying float vAlpha;
   void main() {
     float d = length(gl_PointCoord - 0.5);
     if (d > 0.5) discard;
-    gl_FragColor = vec4(uColor, vAlpha * smoothstep(0.5, 0.0, d));
+    gl_FragColor = vec4(uColor, uAlpha * vAlpha * smoothstep(0.5, 0.0, d));
   }
 `
 
@@ -302,27 +279,27 @@ function Dust({ count }: { count: number }) {
           uTime: { value: 0 },
           uPixelRatio: { value: gl.getPixelRatio() },
           uColor: { value: new THREE.Color('#e9d6a6') },
+          uAlpha: { value: 1 },
         },
       }),
     [gl],
   )
   useFrame((state) => {
     material.uniforms.uTime.value = state.clock.elapsedTime
+    material.uniforms.uAlpha.value = THREE.MathUtils.damp(material.uniforms.uAlpha.value, journey.theme === 'light' ? 0.25 : 1, 2, 0.016)
   })
   return <points geometry={geometry} material={material} frustumCulled={false} />
 }
 
 /* ------------------------------------------------------------------ WORLD */
 
-export function World({ colors, density, particles }: WorldProps) {
+export function World({ colors, density, particles, shadowSize }: WorldProps) {
   return (
     <>
       <CameraRig />
-      <hemisphereLight args={['#fff1dc', '#16130f', 1.1]} />
-      <directionalLight position={[40, 60, 30]} intensity={2.2} color="#fff4e6" />
-      <directionalLight position={[-30, 20, -60]} intensity={0.6} color="#b7c8d4" />
+      <Atmosphere shadowSize={shadowSize} />
 
-      <Ground color="#d1b572" />
+      <Ground />
       <Thread colors={colors} />
       <ZoneRings colors={colors} />
       <Flow colors={colors} density={density} />

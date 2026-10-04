@@ -123,7 +123,12 @@ export type Business = {
   slug: string
   name: string
   vertical: string
-  stage: StageId
+  /** Position in the integrated poultry chain; absent for diversification businesses. */
+  stage?: StageId
+  /** Accent colour when the business sits outside the chain. */
+  accent?: string
+  /** Signature as written on the company logo. */
+  tagline?: Localized
   category: Localized
   statement: Localized
   description: Localized

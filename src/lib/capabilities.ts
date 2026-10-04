@@ -13,12 +13,14 @@ export type TierSettings = {
   density: number
   particles: number
   antialias: boolean
+  /** Shadow map size; 0 disables real-time shadows. */
+  shadows: number
 }
 
 export const tierSettings: Record<Exclude<Tier, 'static'>, TierSettings> = {
-  high: { dpr: [1, 2], density: 1, particles: 2400, antialias: true },
-  medium: { dpr: [1, 1.25], density: 0.6, particles: 1200, antialias: true },
-  low: { dpr: [1, 1], density: 0.35, particles: 500, antialias: false },
+  high: { dpr: [1, 2], density: 1, particles: 2400, antialias: true, shadows: 2048 },
+  medium: { dpr: [1, 1.25], density: 0.6, particles: 1200, antialias: true, shadows: 1024 },
+  low: { dpr: [1, 1], density: 0.35, particles: 500, antialias: false, shadows: 0 },
 }
 
 function hasWebGL(): { ok: boolean; renderer: string } {

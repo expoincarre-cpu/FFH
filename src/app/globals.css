@@ -3,6 +3,24 @@
    Editorial · industrial · atmospheric. Dark-first with paper sections.
    ========================================================================== */
 
+/* Tokens derived from --fg are re-declared on every scope that changes --fg. */
+:root,
+.theme-light,
+.section--figures,
+.section--values,
+.section--form,
+.article,
+.section--governance,
+.section--eco,
+.site-footer,
+.bsec--dark,
+.on-green {
+  --muted: color-mix(in srgb, var(--fg) 62%, transparent);
+  --faint: color-mix(in srgb, var(--fg) 38%, transparent);
+  --line: color-mix(in srgb, var(--fg) 14%, transparent);
+  --line-strong: color-mix(in srgb, var(--fg) 30%, transparent);
+}
+
 @property --stage {
   syntax: '<color>';
   inherits: true;
@@ -24,10 +42,8 @@
   --paper-2: #ebe5cf;
   --fg: var(--paper);
   --bg: var(--ink);
-  --muted: color-mix(in srgb, var(--fg) 58%, transparent);
-  --faint: color-mix(in srgb, var(--fg) 34%, transparent);
-  --line: color-mix(in srgb, var(--fg) 14%, transparent);
-  --line-strong: color-mix(in srgb, var(--fg) 30%, transparent);
+  --ph-a: #18201d;
+  --ph-b: #111614;
 
   --brand: var(--gold);
   --accent: var(--gold);
@@ -57,6 +73,70 @@
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
 
   color-scheme: dark;
+}
+
+/* ------------------------------------------------------------ light theme
+   Ink and paper swap roles: grounds become cream, type becomes charcoal.
+   Green brand sections (ecosystem, footer) stay green in both themes. */
+:root[data-theme='light'] {
+  --ink: var(--cream);
+  --ink-3: #e9e2ca;
+  --paper: var(--charcoal);
+  --paper-2: #2a3030;
+  --ph-a: #efe8d2;
+  --ph-b: #e2d9bd;
+  color-scheme: light;
+}
+:root[data-theme='light'] .theme-light,
+:root[data-theme='light'] .section--figures,
+:root[data-theme='light'] .section--values,
+:root[data-theme='light'] .section--form,
+:root[data-theme='light'] .article,
+:root[data-theme='light'] .section--governance {
+  --fg: var(--charcoal);
+  --bg: #ebe4cc;
+}
+.section--eco,
+.site-footer,
+.bsec--dark,
+.on-green {
+  --fg: var(--cream);
+  --bg: var(--green-deep);
+  color: var(--fg);
+}
+:root[data-theme='light'] .site-footer .logo-on-light,
+:root:not([data-theme='light']) .logo-on-light,
+:root[data-theme='light'] .logo-on-dark {
+  display: none;
+}
+:root[data-theme='light'] .site-footer .logo-on-dark {
+  display: block;
+}
+
+html {
+  transition: background-color 0.5s;
+}
+.theme-toggle {
+  position: relative;
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in srgb, var(--paper) 22%, transparent);
+  color: var(--paper);
+  transition: border-color 0.3s, background 0.3s;
+}
+.theme-toggle:hover {
+  border-color: var(--stage);
+}
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.8s var(--ease-out);
+}
+:root[data-theme='light'] .theme-toggle svg {
+  transform: rotate(180deg);
 }
 
 /* ------------------------------------------------------------------ reset */
@@ -513,12 +593,12 @@ address {
   opacity: 0;
   transform: translateX(-8px);
 }
-@media (max-width: 480px) {
+@media (max-width: 560px) {
   .logo__mark {
     width: 34px;
   }
   .logo__word {
-    width: 124px;
+    display: none;
   }
 }
 
@@ -1360,13 +1440,14 @@ address {
   opacity: 1;
 }
 .eco__detail {
+  --bg: var(--charcoal);
   position: sticky;
   top: calc(var(--header) + 24px);
   display: grid;
   gap: 14px;
   padding: 28px;
   border: 1px solid var(--line);
-  background: var(--ink);
+  background: var(--charcoal);
 }
 .eco__detail .label:first-child {
   color: var(--focus);
@@ -1810,7 +1891,7 @@ address {
   background:
     radial-gradient(70% 60% at 70% 30%, color-mix(in srgb, var(--c) 42%, transparent), transparent 70%),
     radial-gradient(60% 50% at 20% 90%, color-mix(in srgb, var(--c) 22%, transparent), transparent 70%),
-    linear-gradient(160deg, color-mix(in srgb, var(--c) 18%, #18201d), #111614);
+    linear-gradient(160deg, color-mix(in srgb, var(--c) 18%, var(--ph-a)), var(--ph-b));
 }
 .visual__placeholder::before {
   content: '';
@@ -3273,4 +3354,111 @@ address {
     animation: none;
     flex-wrap: wrap;
   }
+}
+
+/* --------------------------------------------------------- company logos */
+
+.company-logo {
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  background: var(--cream);
+  border: 1px solid color-mix(in srgb, var(--charcoal) 10%, transparent);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.company-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.company-logo--s {
+  width: 88px;
+  height: 40px;
+  padding: 5px 8px;
+}
+.company-logo--m {
+  width: 150px;
+  height: 64px;
+  padding: 8px 12px;
+}
+.company-logo--l {
+  width: min(280px, 70vw);
+  height: 112px;
+  padding: 14px 20px;
+}
+.company-logo__name {
+  font-family: var(--font-display);
+  font-size: 0.95em;
+  color: var(--green-deep);
+  text-align: center;
+  line-height: 1.05;
+}
+.jpanel__companies a {
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+}
+.jpanel__companies a > span:not(.company-logo) {
+  display: grid;
+  gap: 2px;
+}
+.eco__detail-logo {
+  justify-self: start;
+  margin-bottom: 4px;
+}
+.business-hero__logo {
+  margin-top: 28px;
+}
+.vertical__companies .company-logo {
+  grid-column: 1;
+  margin-bottom: 12px;
+}
+
+/* Light theme: the 3D scrim is a soft cream veil, only behind the copy. */
+:root[data-theme='light'] .journey__scrim {
+  background:
+    linear-gradient(90deg, color-mix(in srgb, var(--cream) 78%, transparent) 0%, color-mix(in srgb, var(--cream) 30%, transparent) 38%, transparent 58%),
+    linear-gradient(180deg, color-mix(in srgb, var(--cream) 45%, transparent) 0%, transparent 14%, transparent 85%, color-mix(in srgb, var(--cream) 55%, transparent) 100%);
+}
+@media (max-width: 767px) {
+  :root[data-theme='light'] .journey__scrim {
+    background: linear-gradient(180deg, color-mix(in srgb, var(--cream) 40%, transparent) 0%, transparent 30%, color-mix(in srgb, var(--cream) 60%, transparent) 70%);
+  }
+}
+
+/* Stage colours are pale; on cream they are deepened for legibility. */
+:root[data-theme='light'] .journey__rail [data-active] button,
+:root[data-theme='light'] .chain-legend li span,
+:root[data-theme='light'] .jpanel--stage .label,
+:root[data-theme='light'] .jpanel__companies a:hover,
+:root[data-theme='light'] .eco__stage span,
+:root[data-theme='light'] .chapter__period,
+:root[data-theme='light'] .vertical__num,
+:root[data-theme='light'] .vertical__companies a:hover,
+:root[data-theme='light'] .business-hero__statement,
+:root[data-theme='light'] .chain-position__flows a:hover,
+:root[data-theme='light'] .bsec__title span,
+:root[data-theme='light'] .capabilities__num,
+:root[data-theme='light'] .contact__sites a:hover {
+  color: color-mix(in srgb, var(--c) 55%, var(--charcoal));
+}
+:root[data-theme='light'] .jpanel--stage .label,
+:root[data-theme='light'] .eco__detail .label:first-child {
+  color: color-mix(in srgb, var(--c, var(--gold)) 50%, var(--charcoal));
+}
+.company-logo .company-logo__name {
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--green-deep);
+}
+.company-logo--l .company-logo__name {
+  font-size: 28px;
+}
+.fb-solid {
+  fill: var(--fb-fill, #1b1914);
+}
+:root[data-theme='light'] .fb-solid {
+  --fb-fill: #ebe4cc;
 }

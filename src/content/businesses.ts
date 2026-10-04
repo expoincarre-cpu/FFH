@@ -21,6 +21,15 @@ export const domains: Domain[] = [
     },
     verticals: ['animal-nutrition', 'hatchery', 'farming', 'processing'],
   },
+  {
+    id: 'diversification',
+    name: { fr: 'Agriculture & produits du terroir', en: 'Agriculture & terroir products' },
+    description: {
+      fr: "Au-delà de la filière avicole, le groupe valorise d'autres savoir-faire agricoles : l'oléiculture et l'élevage laitier.",
+      en: 'Beyond poultry, the group develops other agricultural expertise: olive growing and dairy farming.',
+    },
+    verticals: ['olive-oil', 'dairy'],
+  },
 ]
 
 export const verticals: Vertical[] = [
@@ -64,7 +73,32 @@ export const verticals: Vertical[] = [
     },
     stages: ['transformation', 'food'],
   },
+  {
+    id: 'olive-oil',
+    order: 5,
+    name: { fr: 'Huile d’olive', en: 'Olive oil' },
+    description: {
+      fr: 'Production d’huile d’olive vierge extra issue des vergers marocains.',
+      en: 'Production of extra virgin olive oil from Moroccan orchards.',
+    },
+    stages: [],
+  },
+  {
+    id: 'dairy',
+    order: 6,
+    name: { fr: 'Élevage laitier', en: 'Dairy' },
+    description: {
+      fr: 'Élevage de vaches laitières et production de lait.',
+      en: 'Dairy cattle farming and milk production.',
+    },
+    stages: [],
+  },
 ]
+
+const logo = (slug: string, name: string): Business['logo'] => ({
+  src: `/brand/companies/${slug}.webp`,
+  alt: { fr: `Logo ${name}`, en: `${name} logo` },
+})
 
 const sharedCommitments: Business['commitments'] = [
   {
@@ -102,6 +136,9 @@ export const businesses: Business[] = [
   {
     slug: 'sofalim',
     name: 'SOFALIM',
+    logo: logo('sofalim', 'SOFALIM'),
+    tagline: { fr: 'Nutrition et alimentation animale', en: 'Animal nutrition and feed' },
+    hero: { src: '/media/sofalim-aerial.webp', alt: { fr: 'Vue aérienne du site industriel SOFALIM', en: 'Aerial view of the SOFALIM industrial site' }, width: 800, height: 449 },
     vertical: 'animal-nutrition',
     stage: 'nutrition',
     category: { fr: 'Nutrition animale', en: 'Animal nutrition' },
@@ -156,12 +193,14 @@ export const businesses: Business[] = [
   {
     slug: 'sudinde',
     name: 'SUDINDE',
+    logo: logo('sudinde', 'SUDINDE'),
+    tagline: { fr: 'N° 1 marocain en accouvage dinde', en: 'Morocco’s No. 1 turkey hatchery' },
     vertical: 'hatchery',
     stage: 'hatchery',
     category: { fr: 'Couvoir — dinde', en: 'Hatchery — turkey' },
     statement: {
-      fr: 'Le premier jour de chaque dinde de la filière.',
-      en: 'The first day of every turkey in the chain.',
+      fr: 'N° 1 marocain en accouvage dinde.',
+      en: 'Morocco’s No. 1 turkey hatchery.',
     },
     description: {
       fr: "Couvoir spécialisé dans la production de dindonneaux d'un jour, au service des élevages du groupe et du marché.",
@@ -206,6 +245,7 @@ export const businesses: Business[] = [
   {
     slug: 'poussins-essaouira',
     name: 'POUSSINS ESSAOUIRA',
+    logo: logo('poussins-essaouira', 'POUSSINS ESSAOUIRA'),
     vertical: 'hatchery',
     stage: 'hatchery',
     category: { fr: 'Couvoir — poulet de chair', en: 'Hatchery — broiler' },
@@ -298,6 +338,7 @@ export const businesses: Business[] = [
   {
     slug: 'maroc-dinde',
     name: 'MAROC DINDE',
+    logo: logo('maroc-dinde', 'MAROC DINDE'),
     vertical: 'farming',
     stage: 'farming',
     category: { fr: 'Élevage de dindes', en: 'Turkey farming' },
@@ -346,6 +387,8 @@ export const businesses: Business[] = [
   {
     slug: 'dawajine-soualem',
     name: 'DAWAJINE SOUALEM',
+    logo: logo('dawajine-soualem', 'DAWAJINE SOUALEM'),
+    tagline: { fr: 'L’émergence en élevage de poulet de chair', en: 'Emerging leader in broiler farming' },
     vertical: 'farming',
     stage: 'farming',
     category: { fr: 'Élevage de poulets', en: 'Poultry farming' },
@@ -447,6 +490,84 @@ export const businesses: Business[] = [
     commitments: sharedCommitments,
     suppliesTo: ['market'],
     contact: { email: 'goldavi@ffh.ma' },
+    placeholder: true,
+  },
+  {
+    slug: 'zitounwazit',
+    name: 'ZITOUNWAZIT',
+    logo: logo('zitounwazit', 'ZITOUNWAZIT'),
+    tagline: { fr: 'L’huile d’olive vierge extra', en: 'Extra virgin olive oil' },
+    vertical: 'olive-oil',
+    accent: '#8A9A3B',
+    category: { fr: 'Huile d’olive', en: 'Olive oil' },
+    statement: { fr: 'L’huile d’olive vierge extra.', en: 'Extra virgin olive oil.' },
+    description: {
+      fr: 'Producteur d’huile d’olive vierge extra, ZITOUNWAZIT prolonge l’engagement agricole du groupe vers les produits du terroir.',
+      en: 'A producer of extra virgin olive oil, ZITOUNWAZIT extends the group’s agricultural commitment to terroir products.',
+    },
+    about: {
+      fr: [
+        'De la récolte à la mise en bouteille, ZITOUNWAZIT maîtrise la transformation des olives en huile vierge extra.',
+        'Une extraction à froid et des contrôles qualité rigoureux préservent les qualités aromatiques et nutritionnelles de l’huile. Contenu à compléter.',
+      ],
+      en: [
+        'From harvest to bottling, ZITOUNWAZIT controls the transformation of olives into extra virgin oil.',
+        'Cold extraction and rigorous quality controls preserve the oil’s aromatic and nutritional qualities. Content to be completed.',
+      ],
+    },
+    figures: [],
+    expertise: [
+      { title: { fr: 'Oléiculture', en: 'Olive growing' }, body: { fr: 'Conduite des vergers et récolte.', en: 'Orchard management and harvest.' } },
+      { title: { fr: 'Trituration', en: 'Milling' }, body: { fr: 'Extraction à froid de l’huile vierge extra.', en: 'Cold extraction of extra virgin oil.' } },
+    ],
+    capacity: [{ label: { fr: 'Moulin', en: 'Mill' }, value: { fr: 'À confirmer', en: 'To be confirmed' } }],
+    products: [
+      { id: 'evoo', name: { fr: 'Huile d’olive vierge extra', en: 'Extra virgin olive oil' }, description: { fr: 'Formats bouteille et bidon.', en: 'Bottles and cans.' } },
+    ],
+    sites: [],
+    certifications: [onssa],
+    commitments: sharedCommitments,
+    suppliesTo: [],
+    contact: { email: 'zitounwazit@ffh.ma' },
+    placeholder: true,
+  },
+  {
+    slug: 'nature-lait',
+    name: 'NATURE LAIT',
+    logo: logo('nature-lait', 'NATURE LAIT'),
+    tagline: { fr: 'Vaches laitières & lait', en: 'Dairy cows & milk' },
+    vertical: 'dairy',
+    accent: '#6F9BC4',
+    category: { fr: 'Élevage laitier', en: 'Dairy farming' },
+    statement: { fr: 'Vaches laitières & lait.', en: 'Dairy cows & milk.' },
+    description: {
+      fr: 'Élevage de vaches laitières et production de lait, au service de la filière laitière marocaine.',
+      en: 'Dairy cattle farming and milk production, serving the Moroccan dairy industry.',
+    },
+    about: {
+      fr: [
+        'NATURE LAIT conduit un troupeau de vaches laitières et assure la production de lait cru dans le respect du bien-être animal.',
+        'Alimentation, suivi vétérinaire et traite bénéficient de l’expertise nutritionnelle du groupe. Contenu à compléter.',
+      ],
+      en: [
+        'NATURE LAIT runs a dairy herd and produces raw milk with a strong focus on animal welfare.',
+        'Feeding, veterinary care and milking benefit from the group’s nutrition expertise. Content to be completed.',
+      ],
+    },
+    figures: [],
+    expertise: [
+      { title: { fr: 'Élevage laitier', en: 'Dairy herd' }, body: { fr: 'Conduite du troupeau et bien-être animal.', en: 'Herd management and animal welfare.' } },
+      { title: { fr: 'Traite', en: 'Milking' }, body: { fr: 'Traite et chaîne du froid du lait cru.', en: 'Milking and raw-milk cold chain.' } },
+    ],
+    capacity: [{ label: { fr: 'Ferme', en: 'Farm' }, value: { fr: 'À confirmer', en: 'To be confirmed' } }],
+    products: [
+      { id: 'milk', name: { fr: 'Lait cru', en: 'Raw milk' }, description: { fr: 'Collecté et refroidi sur site.', en: 'Collected and chilled on site.' } },
+    ],
+    sites: [],
+    certifications: [onssa],
+    commitments: sharedCommitments,
+    suppliesTo: [],
+    contact: { email: 'nature-lait@ffh.ma' },
     placeholder: true,
   },
 ]

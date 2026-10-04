@@ -86,6 +86,21 @@ decorative (`aria-hidden`) and the page reads the same without it.
 
 Force a tier for testing with `?tier=high|medium|low|static`.
 
+## Themes
+
+Light and dark modes share one token system (`globals.css`): on the light theme ink and paper swap
+roles, green brand sections stay green. The choice is stored in `localStorage` (`ffh-theme`),
+defaults to the OS preference, and is applied by an inline script before first paint. The 3D world
+follows the theme: Moroccan daylight on light, warm dusk with lit windows on dark.
+
+## 3D realism
+
+`components/three/Atmosphere.tsx` provides a sky dome, image-based lighting generated from it,
+a shadow-casting sun that tracks the camera and distance fog. Surfaces use procedural PBR textures
+(`textures.ts`: corrugated cladding, concrete, façades with windows, soil, asphalt, fields), and
+`props.tsx` holds trucks, palms and trees. The SOFALIM zone is modelled on the aerial photograph of
+the site (green mill tower, silo battery and gallery, orange block, offices, palms).
+
 ## Placeholder content — to replace before launch
 
 Marked `placeholder: true` in `src/content/*`:
@@ -100,6 +115,9 @@ Marked `placeholder: true` in `src/content/*`:
   `src/app/brand-fonts.css`.
 - **Vector logo** — `public/brand/` holds high-resolution transparent WebP exports of the supplied
   logos; replace with SVG masters when available (same file names).
+- **Company logos** — extracted from the supplied logo sheet (`public/brand/companies/`); SONAVIC and
+  GOLDAVI have none yet and show their name. Replace with vector originals when available.
+- **ZITOUNWAZIT and NATURE LAIT** — added from the logo sheet; descriptions, figures and sites to provide.
 - **Photography / video** — every image slot renders an art-directed placeholder until a `Media`
   object is provided in the CMS.
 

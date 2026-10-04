@@ -16,10 +16,10 @@ export const ZONE_LIST = Object.values(ZONES)
  * hero · intro · nutrition · hatchery · farming · transformation · food · ecosystem.
  */
 export const STATIONS: { pos: [number, number, number]; target: [number, number, number] }[] = [
-  { pos: [38, 19, 28], target: [-24, 8, -26] },
-  { pos: [46, 24, -2], target: [-14, 6, -34] },
-  { pos: [34, 7, 2], target: [-14, 9, -34] },
-  { pos: [-12, 5, -60], target: [3, 1.5, -92] },
+  { pos: [16, 17, 34], target: [4, 11, -32] },
+  { pos: [58, 26, 8], target: [12, 8, -34] },
+  { pos: [38, 6.5, -8], target: [16, 8, -32] },
+  { pos: [-16, 14, -56], target: [6, 0, -88] },
   { pos: [16, 17, -98], target: [-22, 0, -136] },
   { pos: [-24, 9, -156], target: [6, 3, -186] },
   { pos: [18, 8, -202], target: [-4, 5, -230] },

@@ -7,6 +7,7 @@ import type { Locale } from '@/i18n/config'
 import type { Dictionary } from '@/i18n/dictionaries'
 import { href, type RouteKey } from '@/i18n/routes'
 import { Logo } from './Logo'
+import { ThemeToggle } from './ThemeToggle'
 import { counterpartPath, locales } from './language'
 import { getLenis } from '@/components/motion/SmoothScroll'
 
@@ -86,6 +87,7 @@ export function Header({ locale, dict, articleSlugs }: Props) {
               </Link>
             ))}
           </div>
+          <ThemeToggle labels={{ light: dict.nav.themeLight, dark: dict.nav.themeDark }} />
           <Link href={href(locale, 'contact')} className="btn btn--ghost site-header__cta">
             {dict.nav.cta}
             <span aria-hidden="true">↗</span>

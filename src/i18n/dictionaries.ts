@@ -23,6 +23,8 @@ const fr = {
     cta: 'Nous contacter',
     skip: 'Aller au contenu',
     language: 'Langue',
+    themeLight: 'Passer en mode clair',
+    themeDark: 'Passer en mode sombre',
   },
   common: {
     scroll: 'Défiler pour explorer',
@@ -188,6 +190,8 @@ const en: Dictionary = {
     cta: 'Get in touch',
     skip: 'Skip to content',
     language: 'Language',
+    themeLight: 'Switch to light mode',
+    themeDark: 'Switch to dark mode',
   },
   common: {
     scroll: 'Scroll to explore',
