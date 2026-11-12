@@ -21,7 +21,7 @@ export function PeopleList({ people, labels }: { people: PersonView[]; labels: {
 
   return (
     <ol className="people">
-      {people.map((p, i) => {
+      {people.map((p) => {
         const isOpen = open === p.id
         return (
           <li key={p.id} className="person" data-open={isOpen || undefined}>
@@ -32,7 +32,6 @@ export function PeopleList({ people, labels }: { people: PersonView[]; labels: {
               aria-controls={`bio-${p.id}`}
               onClick={() => setOpen(isOpen ? null : p.id)}
             >
-              <span className="person__num label">{String(i + 1).padStart(2, '0')}</span>
               <span className="person__name">{p.name}</span>
               <span className="person__role">{p.position}</span>
               <span className="person__toggle" aria-hidden="true">

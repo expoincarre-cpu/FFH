@@ -9,28 +9,16 @@ const role = (fr: string, en: string) => ({ fr, en })
 export const people: Person[] = [
   {
     id: 'chairman',
-    name: 'Prénom Nom',
-    position: role('Présidence', 'Chairman'),
-    department: role('Conseil d’administration', 'Board of Directors'),
+    name: 'Abdelmoula Fettah',
+    position: role('Président-Directeur Général', 'Chairman & Chief Executive Officer'),
+    department: role('Conseil d’administration & Direction générale', 'Board of Directors & Executive Management'),
     biography: {
-      fr: "À l'origine du groupe, a conduit l'intégration progressive de la filière, de la première unité d'aliments composés jusqu'à la transformation. Biographie à compléter.",
-      en: 'At the origin of the group, led the progressive integration of the value chain, from the first compound feed mill to processing. Biography to be completed.',
+      fr: "Fondateur de Fettah Financial Holding, Abdelmoula Fettah a conduit l'intégration progressive de la filière, de la nutrition animale à la transformation. Il préside le Conseil d'administration et dirige le groupe. Biographie détaillée à compléter.",
+      en: 'Founder of Fettah Financial Holding, Abdelmoula Fettah has led the progressive integration of the value chain, from animal nutrition to processing. He chairs the Board of Directors and leads the group. Detailed biography to be completed.',
     },
+    portrait: undefined,
     body: 'board',
     order: 1,
-    placeholder: true,
-  },
-  {
-    id: 'ceo',
-    name: 'Prénom Nom',
-    position: role('Direction Générale', 'Chief Executive Officer'),
-    department: role('Direction générale', 'Executive Management'),
-    biography: {
-      fr: "Pilote la stratégie du groupe et la coordination des filiales autour d'un modèle intégré. Biographie à compléter.",
-      en: 'Leads group strategy and the coordination of its companies around an integrated model. Biography to be completed.',
-    },
-    body: 'executive',
-    order: 2,
     placeholder: true,
   },
   {

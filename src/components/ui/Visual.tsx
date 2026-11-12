@@ -30,15 +30,9 @@ export function Visual({ media, locale, color = 'var(--brand)', caption, index, 
           <Image src={media.src} alt={media.alt[locale]} fill sizes="(max-width: 768px) 100vw, 50vw" priority={priority} />
         ) : (
           <div className={`visual__placeholder visual__placeholder--${pattern}`} role="img" aria-label={caption}>
-            {index && <span className="visual__index">{index}</span>}
           </div>
         )}
       </div>
-      {!media?.src && (
-        <figcaption className="visual__caption">
-          <span>{caption}</span>
-        </figcaption>
-      )}
     </figure>
   )
 }

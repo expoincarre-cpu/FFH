@@ -5,7 +5,6 @@ import { getDictionary } from '@/i18n/dictionaries'
 import { href } from '@/i18n/routes'
 import { businessColor, getBusiness, getBusinesses, getStages } from '@/lib/cms'
 import { CompanyLogo } from '@/components/ui/CompanyLogo'
-import { pad } from '@/lib/format'
 import { Lines } from '@/components/ui/Lines'
 import { Visual } from '@/components/ui/Visual'
 import { Counter } from '@/components/ui/Counter'
@@ -23,8 +22,6 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
   const downstream = all.filter((b) => business.suppliesTo.includes(b.slug))
   const next = all[(all.findIndex((b) => b.slug === business.slug) + 1) % all.length]
   const t = dict.business
-  let n = 0
-  const num = () => pad(++n)
 
   return (
     <article className="business" style={{ '--c': color } as React.CSSProperties}>
@@ -33,8 +30,8 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
         <div className="container business-hero__grid">
           <div className="business-hero__text">
             <p className="label" data-reveal="up">
-              <Link href={href(locale, 'expertise')} className="crumb">
-                {dict.nav.expertise}
+              <Link href={href(locale, 'ecosystem')} className="crumb">
+                {dict.nav.ecosystem}
               </Link>{' '}
               / {business.category[locale]}
             </p>
@@ -49,7 +46,6 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
             locale={locale}
             color={color}
             caption={`${dict.common.visualPending} — ${business.name}`}
-            index={stage ? pad(stage.index) : undefined}
             ratio="16 / 9"
             className="business-hero__visual"
             priority
@@ -64,7 +60,6 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
             <ol>
               {stages.map((s) => (
                 <li key={s.id} data-on={s.id === business.stage || undefined} style={{ '--c': s.color } as React.CSSProperties}>
-                  <span>{pad(s.index)}</span>
                   {s.name[locale]}
                 </li>
               ))}
@@ -101,9 +96,7 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
       {/* ABOUT */}
       <section className="section bsec">
         <div className="container bsec__grid">
-          <h2 className="bsec__title label">
-            <span>{num()}</span> {t.about}
-          </h2>
+          <h2 className="bsec__title label">{t.about}</h2>
           <div className="bsec__body">
             <p className="statement__text" data-reveal="up">
               {business.description[locale]}
@@ -122,13 +115,10 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
       {/* EXPERTISE */}
       <section className="section bsec">
         <div className="container bsec__grid">
-          <h2 className="bsec__title label">
-            <span>{num()}</span> {t.expertise}
-          </h2>
+          <h2 className="bsec__title label">{t.expertise}</h2>
           <ol className="bsec__body capabilities" data-reveal="stagger">
             {business.expertise.map((e, i) => (
               <li key={i}>
-                <span className="capabilities__num">{pad(i + 1)}</span>
                 <h3>{e.title[locale]}</h3>
                 <p>{e.body[locale]}</p>
               </li>
@@ -141,9 +131,7 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
       <section className="section bsec bsec--dark">
         {business.figures.length > 0 && (
         <div className="container bsec__grid">
-          <h2 className="bsec__title label">
-            <span>{num()}</span> {t.figures}
-          </h2>
+          <h2 className="bsec__title label">{t.figures}</h2>
           <div className="bsec__body">
             <ul className="bfigures">
               {business.figures.map((f) => (
@@ -154,14 +142,11 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
                 </li>
               ))}
             </ul>
-            {business.placeholder && <p className="label note">{dict.common.placeholderNotice}</p>}
           </div>
         </div>
         )}
         <div className="container bsec__grid">
-          <h2 className="bsec__title label">
-            <span>{num()}</span> {t.capacity}
-          </h2>
+          <h2 className="bsec__title label">{t.capacity}</h2>
           <dl className="bsec__body capacity">
             {business.capacity.map((c, i) => (
               <div key={i} data-reveal="up">
@@ -179,9 +164,7 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
       {/* PRODUCTS / SERVICES */}
       <section className="section bsec">
         <div className="container">
-          <h2 className="bsec__title label">
-            <span>{num()}</span> {t.products}
-          </h2>
+          <h2 className="bsec__title label">{t.products}</h2>
           <ul className="products">
             {business.products.map((p, i) => (
               <li key={p.id} className="product">
@@ -190,7 +173,6 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
                   locale={locale}
                   color={color}
                   caption={p.name[locale]}
-                  index={pad(i + 1)}
                   ratio="1 / 1"
                   pattern={(['dots', 'grid', 'rings', 'lines'] as const)[i % 4]}
                 />
@@ -206,9 +188,7 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
       {business.sites.length > 0 && (
       <section className="section bsec">
         <div className="container bsec__grid">
-          <h2 className="bsec__title label">
-            <span>{num()}</span> {t.locations}
-          </h2>
+          <h2 className="bsec__title label">{t.locations}</h2>
           <div className="bsec__body locations">
             <MoroccoMap
               locale={locale}
@@ -235,9 +215,7 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
       {/* QUALITY & CERTIFICATIONS */}
       <section className="section bsec">
         <div className="container bsec__grid">
-          <h2 className="bsec__title label">
-            <span>{num()}</span> {t.quality}
-          </h2>
+          <h2 className="bsec__title label">{t.quality}</h2>
           <ul className="bsec__body certs" data-reveal="stagger">
             {business.certifications.map((c) => (
               <li key={c.name}>
@@ -254,9 +232,7 @@ export async function BusinessPage({ locale, slug }: { locale: Locale; slug: str
       {/* COMMITMENTS */}
       <section className="section bsec">
         <div className="container bsec__grid">
-          <h2 className="bsec__title label">
-            <span>{num()}</span> {t.commitments}
-          </h2>
+          <h2 className="bsec__title label">{t.commitments}</h2>
           <ol className="bsec__body commitments">
             {business.commitments.map((c, i) => (
               <li key={i} data-reveal="up">

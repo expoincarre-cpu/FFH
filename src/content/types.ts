@@ -77,10 +77,20 @@ export type StoryChapter = {
 
 export type Value = { id: string; title: Localized; body: Localized }
 
+export type Leader = {
+  name: string
+  title: Localized
+  portrait?: Media
+  /** The leader's word, as paragraphs. */
+  message: Localized<string[]>
+  placeholder?: boolean
+}
+
 export type Group = {
   name: string
   legalName: string
   signature: Localized
+  chairman: Leader
   vision: Localized
   mission: Localized
   values: Value[]
@@ -107,10 +117,17 @@ export type Domain = {
 }
 
 /** A business line (vertical) within a domain. Maps to one or more stages. */
+/** A business line (activity) — has its own landing page under the ecosystem. */
 export type Vertical = {
   id: string
+  slug: Localized
   name: Localized
   description: Localized
+  /** Longer introduction for the activity landing page. */
+  intro: Localized
+  /** What this activity hands on to the next link of the chain. */
+  output?: Localized
+  image?: Media
   stages: StageId[]
   order: number
 }
@@ -182,19 +199,4 @@ export type Person = {
   body: 'board' | 'executive' | 'management'
   order: number
   placeholder?: boolean
-}
-
-/* ---------------------------------------------------------------- CAREERS */
-
-export type Job = {
-  id: string
-  title: Localized
-  location: string
-  business: string
-  department: Localized
-  contract: 'CDI' | 'CDD' | 'Stage' | 'Alternance'
-  description: Localized
-  requirements: Localized<string[]>
-  application: { email?: string; url?: string }
-  publishedAt: string
 }

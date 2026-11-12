@@ -3,13 +3,16 @@ import { notFound } from 'next/navigation'
 import { hasLocale, locales, type Locale } from '@/i18n/config'
 import { getDictionary } from '@/i18n/dictionaries'
 import { alternates, href, resolveRoute, routeSegments, type ResolvedRoute } from '@/i18n/routes'
-import { getArticle, getBusiness } from '@/lib/cms'
+import { getArticle, getBusiness, getVertical } from '@/lib/cms'
 import { allRoutes } from '@/lib/static-routes'
 import { HomePage } from '@/components/pages/HomePage'
-import { StoryPage } from '@/components/pages/StoryPage'
-import { ExpertisePage } from '@/components/pages/ExpertisePage'
+import { GroupPage } from '@/components/pages/GroupPage'
+import { GovernancePage } from '@/components/pages/GovernancePage'
+import { MissionPage } from '@/components/pages/MissionPage'
+import { HistoryPage } from '@/components/pages/HistoryPage'
+import { EcosystemPage } from '@/components/pages/EcosystemPage'
+import { ActivityPage } from '@/components/pages/ActivityPage'
 import { BusinessPage } from '@/components/pages/BusinessPage'
-import { PeoplePage } from '@/components/pages/PeoplePage'
 import { CareersPage } from '@/components/pages/CareersPage'
 import { ContactPage } from '@/components/pages/ContactPage'
 import { NewsPage } from '@/components/pages/NewsPage'
@@ -40,6 +43,10 @@ async function resolve(props: Props) {
 }
 
 async function languageAlternates(locale: Locale, route: ResolvedRoute) {
+  if (route.key === 'business') {
+    const v = await getVertical(locale, route.params.slug ?? '')
+    if (v) return Object.fromEntries(locales.map((l) => [l, href(l, 'business', { slug: v.slug[l] })])) as Record<Locale, string>
+  }
   if (route.key !== 'article') return alternates(route.key, route.params)
   const article = await getArticle(locale, route.params.slug ?? '')
   if (!article) return { [locale]: href(locale, 'article', route.params) } as Record<Locale, string>
@@ -60,9 +67,10 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
       title = undefined
       break
     case 'business': {
+      const v = await getVertical(locale, route.params.slug ?? '')
       const b = await getBusiness(route.params.slug ?? '')
-      title = b?.name
-      description = b?.description[locale]
+      title = v?.name[locale] ?? b?.name
+      description = v?.description[locale] ?? b?.description[locale]
       break
     }
     case 'article': {
@@ -95,14 +103,21 @@ export default async function Page(props: Props) {
   switch (route.key) {
     case 'home':
       return <HomePage locale={locale} />
-    case 'story':
-      return <StoryPage locale={locale} />
-    case 'expertise':
-      return <ExpertisePage locale={locale} />
-    case 'business':
+    case 'group':
+      return <GroupPage locale={locale} />
+    case 'governance':
+      return <GovernancePage locale={locale} />
+    case 'mission':
+      return <MissionPage locale={locale} />
+    case 'history':
+      return <HistoryPage locale={locale} />
+    case 'ecosystem':
+      return <EcosystemPage locale={locale} />
+    case 'business': {
+      const vertical = await getVertical(locale, slug)
+      if (vertical) return <ActivityPage locale={locale} vertical={vertical} />
       return <BusinessPage locale={locale} slug={slug} />
-    case 'people':
-      return <PeoplePage locale={locale} />
+    }
     case 'careers':
       return <CareersPage locale={locale} />
     case 'contact':

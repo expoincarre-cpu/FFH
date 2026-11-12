@@ -17,7 +17,7 @@ export async function ContactPage({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <PageHero eyebrow={dict.contact.eyebrow} title={dict.contact.title} lead={dict.contact.lead} index="05" />
+      <PageHero eyebrow={dict.contact.eyebrow} title={dict.contact.title} lead={dict.contact.lead} />
 
       <section className="section contact">
         <div className="container contact__grid">
@@ -65,7 +65,7 @@ export async function ContactPage({ locale }: { locale: Locale }) {
       <Link href={href(locale, 'careers')} className="next-business">
         <span className="label">{dict.nav.careers}</span>
         <span className="display display--xl">{dict.contact.careersCta}</span>
-        <span className="next-business__cat">{dict.careers.openPositions} →</span>
+        <span className="next-business__cat">{dict.careers.formTitle} →</span>
       </Link>
     </>
   )

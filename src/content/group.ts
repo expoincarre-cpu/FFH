@@ -127,6 +127,26 @@ export const group: Group = {
   name: 'FFH',
   legalName: 'Fettah Financial Holding',
   signature: { fr: 'De l’aliment à l’assiette.', en: 'From feed to food.' },
+  // Draft prepared for validation by the Chairman's office.
+  chairman: {
+    name: 'Abdelmoula Fettah',
+    title: { fr: 'Président-Directeur Général', en: 'Chairman & Chief Executive Officer' },
+    placeholder: true,
+    message: {
+      fr: [
+        "Depuis plus de trois décennies, notre groupe s'est construit sur une conviction : la qualité de ce qui arrive dans l'assiette des familles marocaines se décide bien en amont, dès la nutrition animale.",
+        "C'est cette conviction qui nous a conduits à maîtriser, maillon après maillon, l'ensemble de la filière avicole — de la fabrication d'aliments à l'accouvage, de l'élevage à la transformation. Cette intégration n'est pas une fin en soi : elle est la garantie d'une traçabilité complète, d'une exigence sanitaire constante et d'une performance durable pour nos partenaires.",
+        "Notre force, ce sont avant tout les femmes et les hommes qui font vivre nos sites chaque jour, ainsi que les éleveurs, fournisseurs et clients qui nous accordent leur confiance. Ensemble, nous poursuivrons notre développement avec le même sens des responsabilités envers nos territoires, nos collaborateurs et les générations futures.",
+        "Nourrir un pays est une mission qui oblige. Nous l'assumons avec fierté, rigueur et ambition.",
+      ],
+      en: [
+        'For more than three decades, our group has been built on one conviction: the quality of what reaches the tables of Moroccan families is decided far upstream, starting with animal nutrition.',
+        'This conviction led us to master, link by link, the entire poultry value chain — from feed manufacturing to hatching, from farming to processing. Integration is not an end in itself: it is the guarantee of full traceability, uncompromising food safety and lasting performance for our partners.',
+        'Our strength lies first in the women and men who bring our sites to life every day, and in the farmers, suppliers and customers who place their trust in us. Together, we will continue to grow with the same sense of responsibility towards our regions, our people and future generations.',
+        'Feeding a country is a mission that commands respect. We embrace it with pride, rigour and ambition.',
+      ],
+    },
+  },
   vision: {
     fr: "Bâtir la filière avicole intégrée de référence au Maroc, et nourrir durablement les générations à venir.",
     en: 'To build Morocco’s reference integrated poultry value chain, and sustainably feed generations to come.',
@@ -272,7 +292,7 @@ export const group: Group = {
     },
     {
       id: 'today',
-      period: 'Aujourd’hui / Today',
+      period: '2026',
       title: { fr: 'Aujourd’hui', en: 'Today' },
       heading: { fr: 'Un écosystème complet.', en: 'A complete ecosystem.' },
       body: {
@@ -283,7 +303,7 @@ export const group: Group = {
     },
     {
       id: 'next',
-      period: 'Next',
+      period: '→',
       title: { fr: 'Demain', en: 'Next' },
       heading: { fr: 'Nourrir l’avenir.', en: 'Feeding the future.' },
       body: {

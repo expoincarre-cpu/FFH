@@ -2,7 +2,6 @@ import { stages, group } from '@/content/group'
 import { businesses, domains, verticals } from '@/content/businesses'
 import { people } from '@/content/people'
 import { articles } from '@/content/news'
-import { jobs } from '@/content/careers'
 import type { Locale } from '@/i18n/config'
 import type { Article, Business, Site, StageId } from '@/content/types'
 
@@ -41,6 +40,10 @@ export async function getBusinesses() {
   return [...businesses].sort((a, b) => rank(a) - rank(b))
 }
 
+export async function getVertical(locale: Locale, slug: string) {
+  return verticals.find((v) => v.slug[locale] === slug)
+}
+
 export async function getBusiness(slug: string): Promise<Business | undefined> {
   return businesses.find((b) => b.slug === slug)
 }
@@ -59,10 +62,6 @@ export async function getArticles(): Promise<Article[]> {
 
 export async function getArticle(locale: Locale, slug: string) {
   return articles.find((a) => a.slug[locale] === slug)
-}
-
-export async function getJobs() {
-  return [...jobs].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
 }
 
 /** Businesses that belong to the integrated poultry value chain. */

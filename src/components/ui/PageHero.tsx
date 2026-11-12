@@ -19,7 +19,6 @@ export function PageHero({
     <section className="page-hero" style={color ? ({ '--c': color } as React.CSSProperties) : undefined}>
       <div className="container">
         <p className="label page-hero__eyebrow" data-reveal="up">
-          {index && <span className="page-hero__index">{index}</span>}
           {eyebrow}
         </p>
         <Lines as="h1" lines={title} className="display display--xxl page-hero__title" />

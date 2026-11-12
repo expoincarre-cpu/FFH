@@ -21,7 +21,7 @@ export async function NewsPage({ locale }: { locale: Locale }) {
 
   return (
     <>
-      <PageHero eyebrow={dict.news.eyebrow} title={dict.news.title} lead={dict.news.lead} index="06" />
+      <PageHero eyebrow={dict.news.eyebrow} title={dict.news.title} lead={dict.news.lead} />
 
       {featured && (
         <section className="section section--tight">

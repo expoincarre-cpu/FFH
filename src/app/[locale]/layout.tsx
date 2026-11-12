@@ -4,7 +4,7 @@ import '@fontsource-variable/inter'
 import '@fontsource-variable/newsreader'
 import { hasLocale, htmlLang, locales, type Locale } from '@/i18n/config'
 import { getDictionary } from '@/i18n/dictionaries'
-import { getArticles, getBusinesses } from '@/lib/cms'
+import { getArticles, getBusinesses, getVerticals } from '@/lib/cms'
 import { siteUrl } from '@/lib/site'
 import { Header } from '@/components/layout/Header'
 import { themeScript } from '@/components/layout/ThemeToggle'
@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#f6f2e1' },
+    { media: '(prefers-color-scheme: light)', color: '#ffffff' },
     { media: '(prefers-color-scheme: dark)', color: '#151918' },
   ],
   colorScheme: 'dark light',
@@ -48,8 +48,8 @@ export default async function LocaleLayout({
   const { locale } = await params
   if (!hasLocale(locale)) notFound()
   const dict = getDictionary(locale)
-  const [businesses, articles] = await Promise.all([getBusinesses(), getArticles()])
-  const articleSlugs = articles.map((a) => a.slug as Record<Locale, string>)
+  const [businesses, articles, verticals] = await Promise.all([getBusinesses(), getArticles(), getVerticals()])
+  const slugPairs = [...articles, ...verticals].map((a) => a.slug as Record<Locale, string>)
 
   return (
     <html lang={htmlLang[locale]} suppressHydrationWarning>
@@ -62,7 +62,7 @@ export default async function LocaleLayout({
         </a>
         <SmoothScroll />
         <MotionController />
-        <Header locale={locale} dict={dict} articleSlugs={articleSlugs} />
+        <Header locale={locale} dict={dict} slugPairs={slugPairs} />
         <main id="main">{children}</main>
         <Footer locale={locale} dict={dict} businesses={businesses.map((b) => ({ slug: b.slug, name: b.name }))} />
       </body>

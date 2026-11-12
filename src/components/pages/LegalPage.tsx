@@ -30,7 +30,6 @@ export async function LegalPage({ locale }: { locale: Locale }) {
               ? 'L’ensemble des contenus de ce site est la propriété du groupe FFH ou de ses filiales. Toute reproduction est soumise à autorisation.'
               : 'All content on this site is the property of the FFH group or its companies. Any reproduction requires authorisation.'}
           </p>
-          <p className="label">{dict.common.placeholderNotice}</p>
         </div>
       </section>
     </>

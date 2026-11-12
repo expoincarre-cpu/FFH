@@ -31,7 +31,7 @@ export async function Footer({ locale, dict, businesses }: Props) {
           <div>
             <p className="label">{dict.footer.group}</p>
             <ul>
-              {(['story', 'expertise', 'people', 'careers', 'news', 'contact'] as const).map((key) => (
+              {(['group', 'governance', 'mission', 'history', 'ecosystem', 'careers', 'news', 'contact'] as const).map((key) => (
                 <li key={key}>
                   <Link href={href(locale, key)}>{dict.nav[key]}</Link>
                 </li>

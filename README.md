@@ -44,13 +44,20 @@ src/
 | Page | FR | EN |
 | --- | --- | --- |
 | Home | `/fr` | `/en` |
-| Story | `/fr/notre-histoire` | `/en/our-story` |
-| Expertise | `/fr/nos-expertises` | `/en/our-expertise` |
-| Company | `/fr/nos-expertises/sofalim` | `/en/our-expertise/sofalim` |
-| People | `/fr/nos-equipes` | `/en/our-people` |
-| Careers | `/fr/carrieres` | `/en/careers` |
+| The Group (Chairman & CEO's word) | `/fr/le-groupe` | `/en/the-group` |
+| Governance | `/fr/le-groupe/gouvernance` | `/en/the-group/governance` |
+| Mission & Vision | `/fr/le-groupe/mission-vision` | `/en/the-group/mission-vision` |
+| History | `/fr/le-groupe/histoire` | `/en/the-group/history` |
+| Ecosystem (activity workflow) | `/fr/ecosysteme` | `/en/ecosystem` |
+| Activity | `/fr/ecosysteme/accouvage` | `/en/ecosystem/hatchery` |
+| Company | `/fr/ecosysteme/sofalim` | `/en/ecosystem/sofalim` |
+| Careers (CV submission) | `/fr/carrieres` | `/en/careers` |
 | Contact | `/fr/contact` | `/en/contact` |
 | Newsroom | `/fr/actualites/<slug-fr>` | `/en/newsroom/<slug-en>` |
+
+Activities (verticals) and companies share the `/ecosysteme/<slug>` space; activity slugs are
+localized in `content/businesses.ts`. Activity tile images in `public/media/activities/` are stills
+rendered from the site's own 3D world (SOFALIM uses the real aerial photograph).
 
 Components never hard-code paths — they call `href(locale, key, params)`. The language switcher maps
 the current page to its counterpart (including per-language article slugs). Every page emits
@@ -108,7 +115,9 @@ Marked `placeholder: true` in `src/content/*`:
 - **Key figures, capacities, sites and coordinates** — indicative values only.
 - **Supply relationships** between companies (`suppliesTo`) — plausible defaults, to confirm.
 - **Leadership** — names (`Prénom Nom`) and biographies.
-- **Newsroom articles and job offers** — illustrative.
+- **Newsroom articles** — illustrative.
+- **Chairman & CEO's word** (`content/group.ts`) — draft for validation; add his portrait as `chairman.portrait`.
+- **Careers** — `/api/careers` validates the application and résumé; connect `deliver()` to the HR mailbox or ATS.
 - **Headquarters address, phone, emails**.
 - **Fenway Banner web fonts** — the licensed heading face isn't bundled; headings fall back to
   Newsreader (open source). Drop the `.woff2` files in `public/fonts/` and uncomment

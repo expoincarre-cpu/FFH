@@ -154,7 +154,7 @@ export function Journey({ stages, labels, children }: Props) {
             {stages.map((s, i) => (
               <li key={s.id} data-active={stageIndex === i || undefined} data-passed={stageIndex > i || active === 7 || undefined}>
                 <button type="button" onClick={() => goTo(i + 2)} style={{ '--c': s.color } as React.CSSProperties}>
-                  <span className="journey__rail-num">{String(s.index).padStart(2, '0')}</span>
+                  <span className="journey__rail-num" aria-hidden="true" />
                   <span className="journey__rail-name">{s.name}</span>
                 </button>
               </li>

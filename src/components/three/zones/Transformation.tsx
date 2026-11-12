@@ -103,7 +103,7 @@ export function Transformation({ color, density }: { color: string; density: num
       <Truck kind="reefer" cab="#cdd6d4" position={[-9.5, 0, -1.4]} rotation-y={Math.PI} />
       <Truck kind="reefer" position={[-27, 0, 6]} rotation-y={Math.PI / 2} />
 
-      <Trees spots={row([-30, 16], [28, 16], density < 0.5 ? 8 : 14, 1.5, 61)} seed={62} size={1} />
+      <Trees spots={row([-30, -26], [30, -26], density < 0.5 ? 8 : 14, 1.5, 61)} seed={62} size={1} />
       <pointLight position={[0, 8, -2]} color="#e8f4ff" intensity={90} distance={50} decay={1.5} />
     </group>
   )

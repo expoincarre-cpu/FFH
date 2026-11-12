@@ -11,12 +11,12 @@ import { ThemeToggle } from './ThemeToggle'
 import { counterpartPath, locales } from './language'
 import { getLenis } from '@/components/motion/SmoothScroll'
 
-type Props = { locale: Locale; dict: Dictionary; articleSlugs: Record<Locale, string>[] }
+type Props = { locale: Locale; dict: Dictionary; slugPairs: Record<Locale, string>[] }
 
-const primary: Exclude<RouteKey, 'business' | 'article' | 'legal'>[] = ['story', 'expertise', 'people', 'careers']
-const overlay: Exclude<RouteKey, 'business' | 'article' | 'legal'>[] = ['home', 'story', 'expertise', 'people', 'careers', 'news', 'contact']
+const primary: Exclude<RouteKey, 'business' | 'article' | 'legal'>[] = ['group', 'ecosystem', 'careers', 'news']
+const overlay: Exclude<RouteKey, 'business' | 'article' | 'legal'>[] = ['home', 'group', 'ecosystem', 'careers', 'news', 'contact']
 
-export function Header({ locale, dict, articleSlugs }: Props) {
+export function Header({ locale, dict, slugPairs }: Props) {
   const pathname = usePathname() ?? `/${locale}`
   const [scrolled, setScrolled] = useState(false)
   const [hidden, setHidden] = useState(false)
@@ -77,7 +77,7 @@ export function Header({ locale, dict, articleSlugs }: Props) {
             {locales.map((l) => (
               <Link
                 key={l}
-                href={counterpartPath(pathname, l, articleSlugs)}
+                href={counterpartPath(pathname, l, slugPairs)}
                 hrefLang={l}
                 lang={l}
                 aria-current={l === locale ? 'true' : undefined}
@@ -111,7 +111,6 @@ export function Header({ locale, dict, articleSlugs }: Props) {
             {overlay.map((key, i) => (
               <li key={key} style={{ '--i': i } as React.CSSProperties}>
                 <Link href={href(locale, key)} aria-current={isActive(key) ? 'page' : undefined}>
-                  <small>{String(i + 1).padStart(2, '0')}</small>
                   {dict.nav[key]}
                 </Link>
               </li>

@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next'
 import { locales, type Locale } from '@/i18n/config'
 import { alternates, href, type RouteKey } from '@/i18n/routes'
-import { getArticles, getBusinesses } from '@/lib/cms'
+import { getArticles, getBusinesses, getVerticals } from '@/lib/cms'
 import { siteUrl } from '@/lib/site'
 
 function entries(langs: Record<Locale, string>): MetadataRoute.Sitemap {
@@ -10,13 +10,13 @@ function entries(langs: Record<Locale, string>): MetadataRoute.Sitemap {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [businesses, articles] = await Promise.all([getBusinesses(), getArticles()])
-  const keys: RouteKey[] = ['home', 'story', 'expertise', 'people', 'careers', 'contact', 'news', 'legal']
+  const [businesses, articles, verticals] = await Promise.all([getBusinesses(), getArticles(), getVerticals()])
+  const keys: RouteKey[] = ['home', 'group', 'governance', 'mission', 'history', 'ecosystem', 'careers', 'contact', 'news', 'legal']
   return [
     ...keys.flatMap((key) => entries(alternates(key))),
     ...businesses.flatMap((b) => entries(alternates('business', { slug: b.slug }))),
-    ...articles.flatMap((a) =>
-      entries(Object.fromEntries(locales.map((l) => [l, href(l, 'article', { slug: a.slug[l] })])) as Record<Locale, string>),
+    ...[...articles, ...verticals].flatMap((a) =>
+      entries(Object.fromEntries(locales.map((l) => [l, href(l, 'slug' in a && 'title' in a ? 'article' : 'business', { slug: a.slug[l] })])) as Record<Locale, string>),
     ),
   ]
 }

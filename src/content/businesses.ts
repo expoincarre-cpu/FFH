@@ -35,6 +35,13 @@ export const domains: Domain[] = [
 export const verticals: Vertical[] = [
   {
     id: 'animal-nutrition',
+    slug: { fr: 'nutrition-animale', en: 'animal-nutrition' },
+    intro: {
+      fr: "Première étape de la chaîne de valeur, la nutrition animale conditionne la santé des cheptels, la qualité des produits et la performance de toute la filière. Le groupe formule et fabrique des aliments composés adaptés à chaque espèce et à chaque phase d'élevage.",
+      en: "The first link of the value chain, animal nutrition shapes flock health, product quality and the performance of the entire industry. The group formulates and manufactures compound feed tailored to every species and growth phase.",
+    },
+    output: { fr: 'Aliments composés', en: 'Compound feed' },
+    image: { src: '/media/sofalim-aerial.webp', alt: { fr: 'Illustration de l’activité', en: 'Activity illustration' }, width: 1600, height: 1000 },
     order: 1,
     name: { fr: 'Nutrition animale', en: 'Animal nutrition' },
     description: {
@@ -45,6 +52,13 @@ export const verticals: Vertical[] = [
   },
   {
     id: 'hatchery',
+    slug: { fr: 'accouvage', en: 'hatchery' },
+    intro: {
+      fr: "Les couvoirs du groupe assurent l'incubation et l'éclosion des œufs dans des environnements automatisés et rigoureusement contrôlés, pour fournir aux élevages des poussins et dindonneaux d'un jour sains et performants.",
+      en: "The group's hatcheries incubate and hatch eggs in automated, tightly controlled environments, supplying farms with healthy, high-performing day-old chicks and turkey poults.",
+    },
+    output: { fr: 'Poussins & dindonneaux d’un jour', en: 'Day-old chicks & poults' },
+    image: { src: '/media/activities/hatchery.webp', alt: { fr: 'Illustration de l’activité', en: 'Activity illustration' }, width: 1600, height: 1000 },
     order: 2,
     name: { fr: 'Accouvage', en: 'Hatchery' },
     description: {
@@ -55,6 +69,13 @@ export const verticals: Vertical[] = [
   },
   {
     id: 'farming',
+    slug: { fr: 'elevage', en: 'farming' },
+    intro: {
+      fr: "Dans des bâtiments à ambiance contrôlée, les élevages du groupe et ses éleveurs partenaires conduisent la croissance des poulets et des dindes selon des protocoles communs de nutrition, de biosécurité et de bien-être animal.",
+      en: "In climate-controlled houses, the group's farms and partner farmers raise broilers and turkeys under shared protocols for nutrition, biosecurity and animal welfare.",
+    },
+    output: { fr: 'Volailles prêtes à transformer', en: 'Birds ready for processing' },
+    image: { src: '/media/activities/farming.webp', alt: { fr: 'Illustration de l’activité', en: 'Activity illustration' }, width: 1600, height: 1000 },
     order: 3,
     name: { fr: 'Élevage', en: 'Farming' },
     description: {
@@ -65,6 +86,13 @@ export const verticals: Vertical[] = [
   },
   {
     id: 'processing',
+    slug: { fr: 'abattage-transformation', en: 'processing' },
+    intro: {
+      fr: "Abattage, découpe, élaboration et conditionnement : la transformation referme la chaîne et met sur le marché des produits sûrs et traçables, sous chaîne du froid ininterrompue, jusqu'aux points de vente.",
+      en: "Slaughter, cutting, further processing and packaging: processing closes the chain and brings safe, traceable products to market under an unbroken cold chain, all the way to points of sale.",
+    },
+    output: { fr: 'Produits alimentaires', en: 'Food products' },
+    image: { src: '/media/activities/processing.webp', alt: { fr: 'Illustration de l’activité', en: 'Activity illustration' }, width: 1600, height: 1000 },
     order: 4,
     name: { fr: 'Abattage & transformation', en: 'Slaughter & food processing' },
     description: {
@@ -75,6 +103,11 @@ export const verticals: Vertical[] = [
   },
   {
     id: 'olive-oil',
+    slug: { fr: 'huile-olive', en: 'olive-oil' },
+    intro: {
+      fr: "Le groupe valorise le savoir-faire oléicole marocain à travers la production d'huile d'olive vierge extra, de la récolte à la mise en bouteille.",
+      en: "The group showcases Moroccan olive-growing expertise through the production of extra virgin olive oil, from harvest to bottling.",
+    },
     order: 5,
     name: { fr: 'Huile d’olive', en: 'Olive oil' },
     description: {
@@ -85,6 +118,11 @@ export const verticals: Vertical[] = [
   },
   {
     id: 'dairy',
+    slug: { fr: 'elevage-laitier', en: 'dairy' },
+    intro: {
+      fr: "L'élevage de vaches laitières et la production de lait prolongent l'expertise du groupe en nutrition et en conduite d'élevage.",
+      en: "Dairy cattle farming and milk production extend the group's expertise in nutrition and livestock management.",
+    },
     order: 6,
     name: { fr: 'Élevage laitier', en: 'Dairy' },
     description: {

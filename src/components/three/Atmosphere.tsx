@@ -30,7 +30,7 @@ type Palette = {
 
 const DAY: Palette = {
   zenith: '#5f93c4',
-  horizon: '#e6e2d2',
+  horizon: '#e3e8ea',
   ground: '#a89878',
   sun: '#fff0d6',
   sunIntensity: 3.4,

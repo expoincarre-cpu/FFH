@@ -21,7 +21,7 @@ export const STATIONS: { pos: [number, number, number]; target: [number, number,
   { pos: [38, 6.5, -8], target: [16, 8, -32] },
   { pos: [-16, 14, -56], target: [6, 0, -88] },
   { pos: [16, 17, -98], target: [-22, 0, -136] },
-  { pos: [-24, 9, -156], target: [6, 3, -186] },
+  { pos: [-30, 17, -160], target: [6, 2, -188] },
   { pos: [18, 8, -202], target: [-4, 5, -230] },
   { pos: [150, 185, -118], target: [0, 0, -124] },
 ]
