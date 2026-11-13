@@ -8,8 +8,8 @@ export const articles: Article[] = [
   {
     slug: { fr: 'un-ecosysteme-integre', en: 'one-integrated-ecosystem' },
     title: {
-      fr: 'De l’aliment à l’assiette : FFH présente son modèle intégré',
-      en: 'From feed to food: FFH presents its integrated model',
+      fr: 'FFH présente son modèle agro-industriel intégré',
+      en: 'FFH presents its integrated agro-industrial model',
     },
     excerpt: {
       fr: 'Sept entreprises, cinq métiers, une seule chaîne de valeur. Le groupe dévoile une nouvelle identité et un nouveau site.',

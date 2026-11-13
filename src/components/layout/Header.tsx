@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import type { Locale } from '@/i18n/config'
 import type { Dictionary } from '@/i18n/dictionaries'
-import { href, type RouteKey } from '@/i18n/routes'
+import { groupPages, href, type RouteKey } from '@/i18n/routes'
 import { Logo } from './Logo'
 import { ThemeToggle } from './ThemeToggle'
 import { counterpartPath, locales } from './language'
@@ -63,10 +63,33 @@ export function Header({ locale, dict, slugPairs }: Props) {
         <nav className="site-nav" aria-label="Navigation principale / Main">
           <ul>
             {primary.map((key) => (
-              <li key={key}>
-                <Link href={href(locale, key)} className="site-nav__link" aria-current={isActive(key) ? 'page' : undefined}>
-                  <span data-text={dict.nav[key]}>{dict.nav[key]}</span>
+              <li key={key} className={key === 'group' ? 'site-nav__item site-nav__item--dropdown' : 'site-nav__item'}>
+                <Link
+                  href={href(locale, key)}
+                  className="site-nav__link"
+                  aria-current={isActive(key) ? 'page' : undefined}
+                  aria-haspopup={key === 'group' ? 'true' : undefined}
+                >
+                  {dict.nav[key]}
+                  {key === 'group' && (
+                    <svg className="site-nav__caret" viewBox="0 0 10 6" aria-hidden="true">
+                      <path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.3" />
+                    </svg>
+                  )}
                 </Link>
+                {key === 'group' && (
+                  <div className="site-nav__dropdown">
+                    <ul>
+                      {(['group', ...groupPages] as const).map((sub) => (
+                        <li key={sub}>
+                          <Link href={href(locale, sub)} aria-current={pathname === href(locale, sub) ? 'page' : undefined}>
+                            {sub === 'group' ? dict.group.overview : dict.nav[sub]}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </li>
             ))}
           </ul>
@@ -113,6 +136,15 @@ export function Header({ locale, dict, slugPairs }: Props) {
                 <Link href={href(locale, key)} aria-current={isActive(key) ? 'page' : undefined}>
                   {dict.nav[key]}
                 </Link>
+                {key === 'group' && (
+                  <ul className="site-menu__sub">
+                    {groupPages.map((sub) => (
+                      <li key={sub}>
+                        <Link href={href(locale, sub)}>{dict.nav[sub]}</Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ol>

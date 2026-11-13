@@ -93,6 +93,11 @@ decorative (`aria-hidden`) and the page reads the same without it.
 
 Force a tier for testing with `?tier=high|medium|low|static`.
 
+## Typography
+
+All font sizes come from one modular scale (ratio 1.25) defined as `--fs-*` tokens at the end of
+`globals.css` (caption 0.64rem → hero 4.768rem); large steps shrink fluidly on small screens.
+
 ## Themes
 
 Light and dark modes share one token system (`globals.css`): on the light theme ink and paper swap
@@ -126,7 +131,6 @@ Marked `placeholder: true` in `src/content/*`:
   logos; replace with SVG masters when available (same file names).
 - **Company logos** — extracted from the supplied logo sheet (`public/brand/companies/`); SONAVIC and
   GOLDAVI have none yet and show their name. Replace with vector originals when available.
-- **ZITOUNWAZIT and NATURE LAIT** — added from the logo sheet; descriptions, figures and sites to provide.
 - **Photography / video** — every image slot renders an art-directed placeholder until a `Media`
   object is provided in the CMS.
 

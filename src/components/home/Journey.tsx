@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { detectTier, prefersReducedMotion, type Tier } from '@/lib/capabilities'
 import { gsap, ScrollTrigger } from '@/components/motion/gsap'
-import { getLenis } from '@/components/motion/SmoothScroll'
 import { journey } from '@/components/three/state'
 import { Fallback } from '@/components/three/Fallback'
 
@@ -19,7 +18,7 @@ type Props = {
 }
 
 /**
- * The scroll-driven "From feed to food" journey.
+ * The scroll-driven value-chain journey.
  * A sticky viewport hosts the WebGL world (or its 2.5D fallback) while the
  * narrative panels scroll over it. Panel positions define the camera stations.
  */
@@ -122,15 +121,6 @@ export function Journey({ stages, labels, children }: Props) {
   const stageIndex = active >= 2 && active <= 6 ? active - 2 : -1
   const color = stageIndex >= 0 ? stages[stageIndex].color : 'var(--brand)'
 
-  const goTo = (station: number) => {
-    const panel = root.current?.querySelectorAll<HTMLElement>('[data-station]')[station]
-    if (!panel) return
-    const y = panel.getBoundingClientRect().top + window.scrollY + panel.offsetHeight / 2 - window.innerHeight / 2
-    const lenis = getLenis()
-    if (lenis) lenis.scrollTo(y, { duration: 1.8 })
-    else window.scrollTo({ top: y, behavior: prefersReducedMotion() ? 'auto' : 'smooth' })
-  }
-
   return (
     <section
       ref={root}
@@ -149,21 +139,6 @@ export function Journey({ stages, labels, children }: Props) {
         </div>
         <div className="journey__scrim" aria-hidden="true" />
 
-        <nav className="journey__rail" aria-label={labels.stage}>
-          <ol>
-            {stages.map((s, i) => (
-              <li key={s.id} data-active={stageIndex === i || undefined} data-passed={stageIndex > i || active === 7 || undefined}>
-                <button type="button" onClick={() => goTo(i + 2)} style={{ '--c': s.color } as React.CSSProperties}>
-                  <span className="journey__rail-num" aria-hidden="true" />
-                  <span className="journey__rail-name">{s.name}</span>
-                </button>
-              </li>
-            ))}
-          </ol>
-          <span className="journey__rail-track" aria-hidden="true">
-            <span />
-          </span>
-        </nav>
 
         <div className="journey__cue" data-hidden={active > 0 || undefined} aria-hidden="true">
           <span>{labels.scroll}</span>

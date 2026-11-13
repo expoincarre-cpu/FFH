@@ -44,7 +44,7 @@ const fr = {
   },
   home: {
     heroEyebrow: 'Fettah Financial Holding',
-    heroTitle: ['De l’aliment', 'à l’assiette.'],
+    heroTitle: ['Un héritage de valeur.', 'Une vision pour demain.'],
     heroLead:
       "Un écosystème agro-industriel intégré qui relie nutrition, couvoir, élevage, transformation et alimentation.",
     modelEyebrow: 'Le modèle intégré',
@@ -68,7 +68,7 @@ const fr = {
   },
   ecosystem: {
     eyebrow: 'Écosystème',
-    title: ['Un écosystème,', 'six activités.'],
+    title: ['Un écosystème,', 'quatre activités.'],
     lead: "De la nutrition animale à l'assiette, chaque activité du groupe alimente la suivante. Explorez la chaîne de valeur et découvrez chacun de nos métiers.",
     chainTitle: 'La filière avicole intégrée',
     chainLead: 'Quatre activités enchaînées, de la matière première au produit fini.',
@@ -100,6 +100,7 @@ const fr = {
   },
   group: {
     eyebrow: 'Le Groupe',
+    overview: 'Présentation',
     title: ['Fettah Financial', 'Holding.'],
     lead: "Un groupe agro-industriel marocain intégré, engagé depuis plus de trente ans au service de la sécurité alimentaire du Royaume.",
     wordEyebrow: 'Le mot du Président',
@@ -186,7 +187,7 @@ const fr = {
     by: 'Par',
   },
   footer: {
-    tagline: ['De l’aliment', 'à l’assiette.'],
+    tagline: ['Un héritage de valeur.', 'Une vision pour demain.'],
     group: 'Groupe',
     companies: 'Entreprises',
     follow: 'Suivre',
@@ -246,7 +247,7 @@ const en: Dictionary = {
   },
   home: {
     heroEyebrow: 'Fettah Financial Holding',
-    heroTitle: ['From feed', 'to food.'],
+    heroTitle: ['A Legacy of Value.', 'A Vision for Tomorrow.'],
     heroLead:
       'An integrated agro-industrial ecosystem connecting nutrition, hatchery, farming, processing and food.',
     modelEyebrow: 'The integrated model',
@@ -270,7 +271,7 @@ const en: Dictionary = {
   },
   ecosystem: {
     eyebrow: 'Ecosystem',
-    title: ['One ecosystem,', 'six activities.'],
+    title: ['One ecosystem,', 'four activities.'],
     lead: 'From animal nutrition to the table, each of the group’s activities feeds the next. Explore the value chain and discover each of our businesses.',
     chainTitle: 'The integrated poultry chain',
     chainLead: 'Four linked activities, from raw material to finished product.',
@@ -302,6 +303,7 @@ const en: Dictionary = {
   },
   group: {
     eyebrow: 'The Group',
+    overview: 'Overview',
     title: ['Fettah Financial', 'Holding.'],
     lead: 'An integrated Moroccan agro-industrial group, committed for more than thirty years to the Kingdom’s food security.',
     wordEyebrow: 'A word from the Chairman',
@@ -388,7 +390,7 @@ const en: Dictionary = {
     by: 'By',
   },
   footer: {
-    tagline: ['From feed', 'to food.'],
+    tagline: ['A Legacy of Value.', 'A Vision for Tomorrow.'],
     group: 'Group',
     companies: 'Companies',
     follow: 'Follow',

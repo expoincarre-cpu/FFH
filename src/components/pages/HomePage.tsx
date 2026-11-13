@@ -33,13 +33,6 @@ export async function HomePage({ locale }: { locale: Locale }) {
               <p className="lead" data-reveal="up" data-delay="0.3">
                 {dict.home.heroLead}
               </p>
-              <ol className="chain-legend" data-reveal="stagger">
-                {stages.map((s) => (
-                  <li key={s.id} style={{ '--c': s.color } as React.CSSProperties}>
-                    {s.name[locale]}
-                  </li>
-                ))}
-              </ol>
             </div>
           </div>
         </div>
@@ -149,27 +142,6 @@ export async function HomePage({ locale }: { locale: Locale }) {
               </li>
             ))}
           </ul>
-        </div>
-      </section>
-
-      {/* STORY */}
-      <section className="section section--story" aria-labelledby="story-teaser">
-        <div className="container">
-          <SectionHead eyebrow={dict.home.storyEyebrow} id="story-teaser" title={dict.home.storyTitle} />
-          <ol className="timeline-strip" data-reveal="stagger">
-            {group.story.map((c, i) => {
-              const color = stages.find((s) => s.id === c.stage)?.color
-              return (
-                <li key={c.id} style={{ '--c': color ?? 'var(--paper)' } as React.CSSProperties}>
-                  <strong>{c.title[locale]}</strong>
-                  <span>{c.period}</span>
-                </li>
-              )
-            })}
-          </ol>
-          <Link href={href(locale, 'history')} className="link-arrow">
-            {dict.nav.history} →
-          </Link>
         </div>
       </section>
 

@@ -37,19 +37,13 @@ export async function EcosystemPage({ locale }: { locale: Locale }) {
             {chain.map((v, i) => (
               <li key={v.id} className="eco-flow__step">
                 <ActivityTile vertical={v} companies={companiesOf(v)} locale={locale} explore={dict.ecosystem.explore} />
-                {v.output && (
-                  <p className="eco-flow__link" aria-hidden={i === chain.length - 1 || undefined}>
+                {v.output && i < chain.length - 1 && (
+                  <p className="eco-flow__link">
                     <span>{v.output[locale]}</span>
                   </p>
                 )}
               </li>
             ))}
-            <li className="eco-flow__step eco-flow__step--market">
-              <div className="eco-flow__market">
-                <strong className="display display--m">{dict.ecosystem.market}</strong>
-                <span>{dict.ecosystem.marketLead}</span>
-              </div>
-            </li>
           </ol>
           <p className="eco-flow__note">
             <span className="eco-flow__note-line" aria-hidden="true" />

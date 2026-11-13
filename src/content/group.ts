@@ -126,7 +126,7 @@ export const stages: Stage[] = [
 export const group: Group = {
   name: 'FFH',
   legalName: 'Fettah Financial Holding',
-  signature: { fr: 'De l’aliment à l’assiette.', en: 'From feed to food.' },
+  signature: { fr: 'Un héritage de valeur. Une vision pour demain.', en: 'A Legacy of Value. A Vision for Tomorrow.' },
   // Draft prepared for validation by the Chairman's office.
   chairman: {
     name: 'Abdelmoula Fettah',
@@ -208,17 +208,9 @@ export const group: Group = {
     },
     {
       id: 'companies',
-      value: 9,
+      value: 7,
       unit: { fr: 'entreprises', en: 'companies' },
-      label: { fr: 'dont 7 dans la filière avicole', en: 'including 7 in the poultry chain' },
-    },
-    {
-      id: 'sites',
-      value: 25,
-      prefix: '+',
-      unit: { fr: 'sites', en: 'sites' },
-      label: { fr: 'industriels et agricoles', en: 'industrial and agricultural' },
-      placeholder: true,
+      label: { fr: 'une filière intégrée', en: 'one integrated chain' },
     },
     {
       id: 'birds',
@@ -235,13 +227,6 @@ export const group: Group = {
       suffix: 'k',
       unit: { fr: 'tonnes / an', en: 'tonnes / year' },
       label: { fr: "d'aliments composés", en: 'of compound feed' },
-      placeholder: true,
-    },
-    {
-      id: 'regions',
-      value: 6,
-      unit: { fr: 'régions', en: 'regions' },
-      label: { fr: 'du Royaume', en: 'of the Kingdom' },
       placeholder: true,
     },
   ],
@@ -285,8 +270,8 @@ export const group: Group = {
       title: { fr: 'Échelle industrielle', en: 'Industrial scale' },
       heading: { fr: 'Transformer au plus près de la ferme.', en: 'Processing close to the farm.' },
       body: {
-        fr: "Avec l'abattoir et l'unité de transformation, la chaîne se referme : chaque produit est traçable de l'aliment à l'assiette, dans une chaîne du froid continue.",
-        en: 'With the slaughterhouse and processing plant, the chain closes: every product is traceable from feed to food, within an unbroken cold chain.',
+        fr: "Avec l'abattoir et l'unité de transformation, la chaîne se referme : chaque produit est traçable de la nutrition animale jusqu'au point de vente, dans une chaîne du froid continue.",
+        en: 'With the slaughterhouse and processing plant, the chain closes: every product is traceable from animal nutrition to the point of sale, within an unbroken cold chain.',
       },
       stage: 'transformation',
     },
