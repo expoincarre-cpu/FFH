@@ -8,6 +8,9 @@ import { journey } from '@/components/three/state'
 import { Fallback } from '@/components/three/Fallback'
 
 const Scene = dynamic(() => import('@/components/three/Scene'), { ssr: false })
+const Film = dynamic(() => import('@/components/three/Film'), { ssr: false })
+// Prototype of the baked WebGL mobile path, kept for comparison: ?mobile=baked
+const bakedMobile = typeof window !== 'undefined' && /[?&]mobile=baked/.test(window.location.search)
 
 type StageInfo = { id: string; index: number; name: string; color: string }
 
@@ -132,7 +135,9 @@ export function Journey({ stages, labels, children }: Props) {
     >
       <div className="journey__viewport">
         <div className="journey__visual">
-          {tier && tier !== 'static' ? (
+          {tier === 'low' && !bakedMobile ? (
+            <Film running={running} onFail={fail} />
+          ) : tier && tier !== 'static' ? (
             <Scene tier={tier === 'low' ? 'baked' : tier} colors={stages.map((s) => s.color)} running={running} onFail={fail} />
           ) : (
             <Fallback colors={stages.map((s) => s.color)} active={active} />

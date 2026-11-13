@@ -28,6 +28,8 @@ export const journey = {
   frames: 0,
   /** When true, damped values (camera, theme blend) jump straight to their targets. */
   snap: false,
+  /** When set, overrides the curve parameter (0–1) directly — used to render evenly spaced frames offline. */
+  param: null as number | null,
   /** Deterministic capture hook (only with ?capture): renders one frame at a given progress/time. */
   render: null as null | ((progress: number, time: number) => void),
 }
@@ -36,6 +38,7 @@ export const STATION_COUNT = 8
 
 /** Maps scroll progress to a curve parameter, dwelling slightly at each station. */
 export function curveParam(p: number, anchors = journey.anchors) {
+  if (journey.param !== null) return journey.param
   const n = anchors.length
   if (p <= anchors[0]) return 0
   if (p >= anchors[n - 1]) return 1

@@ -853,6 +853,11 @@ address {
 .journey__visual {
   background: var(--ink);
 }
+/* Pre-rendered journey: fixed-size frames, cover-fitted — no layout shift while they load. */
+.journey__film {
+  object-fit: cover;
+  object-position: 50% 50%;
+}
 .journey[data-tier='pending'] .journey__visual::after {
   content: '';
   position: absolute;

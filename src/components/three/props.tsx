@@ -634,6 +634,8 @@ export function Grass({
   avoid?: (x: number, z: number) => boolean
 }) {
   tuftMat ??= foliageMaterial(tuftTexture(), 'grass', { alphaTest: 0.3, roughness: 0.9 })
+  // Tufts stay out of the depth buffer so screen-space AO does not blacken them.
+  tuftMat.depthWrite = false
   const data = useMemo(() => {
     const r = rng(seed)
     const total = areas.reduce((s, a) => s + Math.abs((a[2] - a[0]) * (a[3] - a[1])), 0)
@@ -654,7 +656,7 @@ export function Grass({
     })
     return { matrices, colors }
   }, [areas, count, seed, height, tints, y, avoid])
-  return <Inst geometry={tuftGeo} material={tuftMat} matrices={data.matrices} colors={data.colors} userData={{ castShadow: false }} frustumCulled={false} />
+  return <Inst geometry={tuftGeo} material={tuftMat} matrices={data.matrices} colors={data.colors} userData={{ castShadow: false }} frustumCulled={false} renderOrder={5} />
 }
 
 /* ------------------------------------------------------ site furniture */
