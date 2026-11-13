@@ -13,6 +13,23 @@ export const journey = {
   theme: 'dark' as 'light' | 'dark',
   /** Normalised pointer, -1 → 1. */
   pointer: { x: 0, y: 0 },
+  /** Theme blend actually rendered: 0 = dusk, 1 = daylight (written by the atmosphere). */
+  mix: 0,
+  /**
+   * Post-processing degradation level, raised by the performance guard:
+   * 0 full · 1 no depth of field, half-res AO · 2 no AO, no bloom · 3 no composer.
+   */
+  degrade: 0,
+  /** Scene exposure for the current theme blend (written by the atmosphere). */
+  exposure: 1,
+  /** Distance from the camera to its look-at point, for depth of field. */
+  focus: 40,
+  /** Frames rendered so far (lets capture scripts wait for the scene). */
+  frames: 0,
+  /** When true, damped values (camera, theme blend) jump straight to their targets. */
+  snap: false,
+  /** Deterministic capture hook (only with ?capture): renders one frame at a given progress/time. */
+  render: null as null | ((progress: number, time: number) => void),
 }
 
 export const STATION_COUNT = 8
@@ -30,6 +47,9 @@ export function curveParam(p: number, anchors = journey.anchors) {
   return (i + (local * 0.35 + eased * 0.65)) / (n - 1)
 }
 
-if (typeof window !== 'undefined' && window.location.search.includes('debug')) {
+if (typeof window !== 'undefined' && /[?&](debug|capture)/.test(window.location.search)) {
   ;(window as unknown as { __journey: typeof journey }).__journey = journey
 }
+
+/** Debug switches from the URL, e.g. ?off=bloom,ao,fog,grade — used to isolate rendering passes. */
+export const off = new Set(typeof window === 'undefined' ? [] : (new URLSearchParams(window.location.search).get('off') ?? '').split(',').filter(Boolean))

@@ -30,7 +30,8 @@ export function Journey({ stages, labels, children }: Props) {
   const activeRef = useRef(0)
 
   useEffect(() => setTier(detectTier()), [])
-  const fail = useCallback(() => setTier('static'), [])
+  // A real-time tier that misses its frame budget drops to the pre-rendered journey; that one drops to the illustration.
+  const fail = useCallback(() => setTier((t) => (t === 'high' || t === 'medium' ? 'low' : 'static')), [])
 
   // Scroll → progress, anchors and active station.
   useEffect(() => {
@@ -132,7 +133,7 @@ export function Journey({ stages, labels, children }: Props) {
       <div className="journey__viewport">
         <div className="journey__visual">
           {tier && tier !== 'static' ? (
-            <Scene tier={tier} colors={stages.map((s) => s.color)} running={running} onFail={fail} />
+            <Scene tier={tier === 'low' ? 'baked' : tier} colors={stages.map((s) => s.color)} running={running} onFail={fail} />
           ) : (
             <Fallback colors={stages.map((s) => s.color)} active={active} />
           )}
